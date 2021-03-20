@@ -15,7 +15,7 @@ class CreatePutriSppTable extends Migration
     {
         Schema::create('putri_spp', function (Blueprint $table) {
             $table->bigIncrements('id_spp');
-            $table->year('tahun');
+            $table->string('tahun');
             $table->integer('nominal');
             $table->timestamps();
         });

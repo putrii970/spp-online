@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Kejuruan;
 
-class KejuruanController extends Controller
+class BerandaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class KejuruanController extends Controller
      */
     public function index()
     {
-        $kejuruans_putri = Kejuruan::all();
-        return view('admin.kejuruan.index_kejuruan', compact('kejuruans_putri'));
+        return view('beranda');
     }
 
     /**
@@ -25,7 +23,7 @@ class KejuruanController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -36,12 +34,7 @@ class KejuruanController extends Controller
      */
     public function store(Request $request)
     {
-        //insert
-        $kejuruans_putri = new Kejuruan;
-        $kejuruans_putri->nama_jurusan = $request->nama_jurusan;
-        $kejuruans_putri->save();
-
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil ditambahkan');
+        //
     }
 
     /**
@@ -63,9 +56,7 @@ class KejuruanController extends Controller
      */
     public function edit($id)
     {
-        $kejuruans_putri = Kejuruan::where('id_jurusan',$id)->get();
-	   
-        return view('admin.kejuruan.edit_kejuruan', compact('kejuruans_putri'));
+        //
     }
 
     /**
@@ -77,10 +68,7 @@ class KejuruanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kejuruans_putri = Kejuruan::find($id);
-        $kejuruans_putri->update($request->all());
-
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil terupdate!');
+        //
     }
 
     /**
@@ -91,8 +79,6 @@ class KejuruanController extends Controller
      */
     public function destroy($id)
     {
-        $kejuruans_putri = Kejuruan::find($id);
-        $kejuruans_putri->delete();
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil dihapus');
+        //
     }
 }

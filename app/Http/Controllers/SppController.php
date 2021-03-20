@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Kejuruan;
+use App\Spp;
 
-class KejuruanController extends Controller
+class SppController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class KejuruanController extends Controller
      */
     public function index()
     {
-        $kejuruans_putri = Kejuruan::all();
-        return view('admin.kejuruan.index_kejuruan', compact('kejuruans_putri'));
+
+        $spp_putri = Spp::all();
+        return view('admin.spp.index_spp', compact('spp_putri'));
     }
 
     /**
@@ -25,7 +26,7 @@ class KejuruanController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -37,11 +38,12 @@ class KejuruanController extends Controller
     public function store(Request $request)
     {
         //insert
-        $kejuruans_putri = new Kejuruan;
-        $kejuruans_putri->nama_jurusan = $request->nama_jurusan;
-        $kejuruans_putri->save();
+        $spp_putri = new Spp;
+        $spp_putri->tahun = $request->tahun;
+        $spp_putri->nominal = $request->nominal;
+        $spp_putri->save();
 
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil ditambahkan');
+        return redirect('/spp')->with('sukses', 'data berhasil ditambahkan');
     }
 
     /**
@@ -63,9 +65,9 @@ class KejuruanController extends Controller
      */
     public function edit($id)
     {
-        $kejuruans_putri = Kejuruan::where('id_jurusan',$id)->get();
+        $spp_putri = Spp::where('id_spp',$id)->get();
 	   
-        return view('admin.kejuruan.edit_kejuruan', compact('kejuruans_putri'));
+        return view('admin.spp.edit_spp', compact('spp_putri'));
     }
 
     /**
@@ -77,10 +79,10 @@ class KejuruanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kejuruans_putri = Kejuruan::find($id);
-        $kejuruans_putri->update($request->all());
+        $spp_putri = Spp::find($id);
+        $spp_putri->update($request->all());
 
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil terupdate!');
+        return redirect('/spp')->with('sukses', 'Data berhasil terupdate!');
     }
 
     /**
@@ -91,8 +93,8 @@ class KejuruanController extends Controller
      */
     public function destroy($id)
     {
-        $kejuruans_putri = Kejuruan::find($id);
-        $kejuruans_putri->delete();
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil dihapus');
+        $spp_putri = Spp::find($id);
+        $spp_putri->delete();
+        return redirect('/spp')->with('sukses', 'Data berhasil dihapus');
     }
 }

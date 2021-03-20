@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Kelas;
 use App\Kejuruan;
 
-class KejuruanController extends Controller
+class KelasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,11 @@ class KejuruanController extends Controller
      */
     public function index()
     {
-        $kejuruans_putri = Kejuruan::all();
-        return view('admin.kejuruan.index_kejuruan', compact('kejuruans_putri'));
+        $kejuruan_putri = Kejuruan::All();
+        $kelas_putri = Kelas::select('*',  'putri_kelas.id_kelas as id_kelas_putri')->join('putri_jurusan', 'putri_kelas.jurusan_id', '=', 'putri_jurusan.id_jurusan' )
+                            ->orderBy('putri_kelas.id_kelas')->get();
+
+        return view('admin.kelas.index_kelas', compact('kelas_putri', 'kejuruan_putri'));
     }
 
     /**
@@ -37,11 +41,12 @@ class KejuruanController extends Controller
     public function store(Request $request)
     {
         //insert
-        $kejuruans_putri = new Kejuruan;
-        $kejuruans_putri->nama_jurusan = $request->nama_jurusan;
-        $kejuruans_putri->save();
+        $kelas_putri = new Kelas;
+        $kelas_putri->nama_kelas = $request->nama_kelas;
+        $kelas_putri->jurusan_id = $request->nama_jurusan;
+        $kelas_putri->save();
 
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil ditambahkan');
+        return redirect('/kelas')->with('sukses', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -63,9 +68,12 @@ class KejuruanController extends Controller
      */
     public function edit($id)
     {
-        $kejuruans_putri = Kejuruan::where('id_jurusan',$id)->get();
+        $kelas_putri = Kelas::find($id);
+        // dd($kelas_putri);
+        // $kejuruan_putri = Kejuruan::All();
+        $kejuruan_putri = Kejuruan::pluck('nama_jurusan', 'id_jurusan');
 	   
-        return view('admin.kejuruan.edit_kejuruan', compact('kejuruans_putri'));
+        return view('admin.kelas.edit_kelas', compact('kelas_putri', 'kejuruan_putri'));
     }
 
     /**
@@ -77,10 +85,10 @@ class KejuruanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kejuruans_putri = Kejuruan::find($id);
-        $kejuruans_putri->update($request->all());
+        $kelas_putri = Kelas::find($id);
+        $kelas_putri->update($request->all());
 
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil terupdate!');
+        return redirect('/kelas')->with('sukses', 'Data berhasil terupdate!');
     }
 
     /**
@@ -91,8 +99,8 @@ class KejuruanController extends Controller
      */
     public function destroy($id)
     {
-        $kejuruans_putri = Kejuruan::find($id);
-        $kejuruans_putri->delete();
-        return redirect('/kejuruan')->with('sukses', 'Data berhasil dihapus');
+        $kelas_putri = Kelas::find($id);
+        $kelas_putri->delete();
+        return redirect('/kelas')->with('sukses', 'Data berhasil dihapus');
     }
 }

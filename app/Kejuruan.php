@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kejuruan extends Model
 {
     protected $table = 'putri_jurusan';
+    protected $primaryKey = 'id_jurusan';
     public $timestamps = true;
     protected $fillable = ['nama_jurusan', 'deleted_at'];
     // use SoftDeletes;
