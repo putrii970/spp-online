@@ -17,12 +17,12 @@ class CreatePutriSiswaTable extends Migration
             $table->char('nisn', 10)->primary();
             $table->char('nis', 8);
             $table->string('nama');
-            $table->bigInteger('kelas_id')->unsigned();
+            $table->bigInteger('putri_kelas_id_kelas')->unsigned();
             $table->text('alamat');
             $table->string('no_telp', 13);
-            $table->bigInteger('spp_id')->unsigned();
-            $table->foreign('kelas_id')->references('id_kelas')->on('putri_kelas')->onDelete('cascade');
-            $table->foreign('spp_id')->references('id_spp')->on('putri_spp')->onDelete('cascade');
+            $table->bigInteger('spp_id_spp')->unsigned();
+            $table->foreign('putri_kelas_id_kelas')->references('id_kelas')->on('putri_kelas')->onDelete('cascade');
+            $table->foreign('spp_id_spp')->references('id_spp')->on('putri_spp')->onDelete('cascade');
             $table->timestamps();
         });
     }

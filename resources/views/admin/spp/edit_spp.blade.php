@@ -47,7 +47,7 @@
                                         $date_putri = date('Y', strtotime('-5 Years'));
                                         $date2_putri = date('Y', strtotime('+1 Years'));
                                         for($i_putri = $date_putri; $i_putri < $date2_putri + 4; $i_putri++){
-                                        echo '<option value='.$i_putri.'-'.($i_putri+1).'>'.$i_putri.'-'.($i_putri+1).'</option>';            }
+                                        echo '<option value='.$i_putri.'>'.$i_putri.'-'.($i_putri+1).'</option>';            }
                                     ?>
                                 </select>
                             </div>

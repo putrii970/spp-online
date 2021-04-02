@@ -51,7 +51,7 @@
 							</div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-success" value="Simpan">
-                                <a href="/kejuruan" class="btn btn-secondary">Kembali</a>
+                                <a href="/kelas" class="btn btn-secondary">Kembali</a>
                             </div>
                  
                         </form>

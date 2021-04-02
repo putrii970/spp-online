@@ -12,4 +12,10 @@ class Kejuruan extends Model
     public $timestamps = true;
     protected $fillable = ['nama_jurusan', 'deleted_at'];
     // use SoftDeletes;
+
+    public function putri_kelas()
+    {
+        return $this->hasMany('App\Kelas');
+        // return $this->hasMany(Kelas::class);
+    }
 }

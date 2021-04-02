@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     /*
@@ -40,10 +39,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'api' => [
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'putri_petugas',
+        ],
+        'siswa' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'putri_siswa',
             'hash' => false,
         ],
     ],
@@ -70,11 +72,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'putri_petugas' => [
+            'driver' => 'eloquent',
+            'model' => App\Petugas::class,
+        ],
+        'putri_siswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Siswa::class,
+        ],
     ],
 
     /*

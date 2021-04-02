@@ -1,5 +1,10 @@
 @extends('../../layouts.master')
+
+@section('page-style')
 <link rel="stylesheet" href="{{asset('admin/assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
+@stop
+
+
 @section('content')
 @if(session('sukses'))
         <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
@@ -100,7 +105,7 @@
                                 
                                 <div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                                     <!-- PAGINATE dan SEARCH -->
-                                    <div class="row mb-2">
+                                    <!-- <div class="row mb-2">
                                         <div class="col-sm-12 col-md-6">
                                             <div class="dataTables_length" id="bootstrap-data-table_length">
                                                 <label>Show
@@ -118,7 +123,7 @@
                                                 <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="bootstrap-data-table"></label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- TABEL -->
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -159,7 +164,7 @@
                                     </div>
 
                                     <!-- SHOW DAN PAGINATE -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-sm-12 col-md-5">
                                             <div class="dataTables_info" id="bootstrap-data-table_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
                                         </div>
@@ -177,7 +182,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- END -->
                                 </div>
                             </div>

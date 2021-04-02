@@ -8,11 +8,11 @@
 @section('content')
 @if(session('sukses'))
         <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-            <span class="badge badge-pill badge-success">Sukses</span>
-                {{session('sukses')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
+                                        <span class="badge badge-pill badge-success">Sukses</span>
+                                        {{session('sukses')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
         </div>
 @endif
 
@@ -36,7 +36,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Master</h1>
+                                <h1>Transaksi</h1>
                             </div>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                         <div class="page-header float-right">
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
-                                    <li><a href="#">Master</a></li>
-                                    <li class="active"><a href="/spp">Spp</a></li>
+                                    <li><a href="#">Transaksi</a></li>
+                                    <li class="active"><a href="/siswa">Data Siswa</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tabel Spp</strong>
+                                <strong class="card-title">Tabel Siswa</strong>
                                 <div class="float-right">
                                     <button type="button" style="float:right;" class="btn btn-info mb-1" data-toggle="modal" data-target="#mediumModal">Tambah</button>
                                 </div>
@@ -73,29 +73,48 @@
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Spp</h5>
+                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Kelas</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                            <form action="/spp" method="POST">
+                                            <form action="/siswa" method="POST">
                                                         {{csrf_field()}}
                                                 <div class="form-group">
-                                                    <select name="tahun" class="form-control form-control">
-                                                        <option>-Pilih Tahun Ajaran-</option>
-                                                        <?php
-                                                            $date_putri = date('Y', strtotime('-5 Years'));
-                                                            $date2_putri = date('Y', strtotime('+1 Years'));
-                                                            for($i_putri = $date_putri; $i_putri < $date2_putri + 4; $i_putri++){
-                                                                echo '<option value='.$i_putri.'>'.$i_putri.'-'.($i_putri+1).'</option>';
-                                                            }
-                                                        ?>
-                                                    </select>
+                                                    <label class=" form-control-label">NISN</label><input type="text" id="nisn" placeholder="" class="form-control" name="nisn" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nominal" class=" form-control-label">Nominal</label>
-                                                    <input type="number" id="nominal" placeholder="" class="form-control" name="nominal" required>
+                                                    <label class=" form-control-label">NIS</label><input type="text" id="nis" placeholder="" class="form-control" name="nis" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class=" form-control-label">Nama</label><input type="text" id="nama" placeholder="" class="form-control" name="nama" required>
+                                                </div>
+                                                <div class="form-group">
+													<label class="col-form-label">Kelas</label>
+													<select required name="kelas" class="form-control form-control" id="kelas">
+													<option value="" disabled selected>-Pilih Kelas-</option>
+													@foreach($kelas_putri as $kel_putri)
+														<option value="{{$kel_putri->id_kelas}}">{{$kel_putri->nama_kelas}} {{$kel_putri->kejuruan_putri->nama_jurusan}}</option>
+													@endforeach
+													</select>
+												</div>
+                                                <div class="form-group">
+                                                    <label class="form-control-label">Alamat</label>
+                                                    <textarea name="alamat" id="alamat" cols="30" rows="2" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class=" form-control-label">No Telp</label><input type="number" id="no_telp" placeholder="" class="form-control" name="no_telp" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Tahun</label>
+													<select required name="spp" class="form-control form-control" id="spp_id">
+													    <option value="" disabled selected>-Pilih Tahun-</option>
+													    @foreach($spp_putri as $s_putri)
+                                                        <?php $spp_int_putri = (int)$s_putri->tahun + 1; ?>
+														<option  value="{{$s_putri->id_spp}}">{{$s_putri->tahun}} - {{$spp_int_putri}}</option>
+													    @endforeach
+													</select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -135,24 +154,33 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
-                                                            <th>Tahun Ajaran</th>
-                                                            <th>Nominal</th>
+                                                            <th>NISN</th>
+                                                            <th>NIS</th>
+                                                            <th>Nama</th>
+                                                            <th>Kelas</th>
+                                                            <th>Alamat</th>
+                                                            <th>No Telepon</th>
+                                                            <th>Spp</th>
                                                             <th>Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <?php $i = 1; ?>
-                                                    @foreach($spp_putri as $sp_putri)
+                                                    @foreach($siswa_putri as $sis_putri)
                                                     <tbody>
                                                         <tr>
                                                             <td>{{$i}}</td>
-                                                            <?php $spp_int_putri = (int)$sp_putri->tahun + 1; ?>
-                                                            <td>{{$sp_putri->tahun}} - {{$spp_int_putri}}</td>
-                                                            <td>@currency{{$sp_putri->nominal}}</td>
+                                                            <td>{{$sis_putri->nisn}}</td>
+                                                            <td>{{$sis_putri->nis}}</td>
+                                                            <td>{{$sis_putri->nama}}</td>
+                                                            <td>{{$sis_putri->putri_kelas->nama_kelas}} {{$sis_putri->putri_kelas->kejuruan_putri->nama_jurusan}}</td>
+                                                            <td>{{$sis_putri->alamat}}</td>
+                                                            <td>{{$sis_putri->no_telp}}</td>
+                                                            <td>{{$sis_putri->putri_spp->tahun}}</td>
                                                             <td>
                                                                 <div class="d-flex mt-2">
-                                                                    <a href="/spp/edit/{{$sp_putri->id_spp}}"><button type="submit" name="edit" class="btn btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
+                                                                    <a href="/siswa/edit/{{$sis_putri->nisn}}"><button type="submit" name="edit" class="btn btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
 
-                                                                    <form action="{{ action('SppController@destroy', $sp_putri->id_spp) }}" method="POST">
+                                                                    <form action="{{ action('SiswaController@destroy', $sis_putri->nisn) }}" method="POST">
                                                                             @csrf
                                                                         @method('DELETE')
 
@@ -199,8 +227,8 @@
                 </div>
             </div>
 </div>
-@stop
 
+@stop
 @section('page-script')
 <script src="{{asset('admin/assets/js/lib/data-table/datatables.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>

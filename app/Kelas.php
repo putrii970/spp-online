@@ -11,8 +11,17 @@ class Kelas extends Model
     public $timestamps = true;
     protected $fillable = ['nama_kelas','jurusan_id'];
 
+    public function siswa()
+    {
+        return $this->hasMany('App\Siswa');
+        // return $this->hasMany(Siswa::class);
+    }
+
     public function kejuruan_putri()
     {
-        return $this->hasMany(Kejuruan::class);
+        return $this->belongsTo('App\Kejuruan', 'jurusan_id', 'id_jurusan');    
+        // return $this->belongsTo(Kejuruan::class);
     }
+
+    
 }
