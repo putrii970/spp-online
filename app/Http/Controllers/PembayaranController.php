@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Siswa;
 use App\Bulan;
+use App\Pembayaran;
+use App\DetailPembayaran;
 
 class PembayaranController extends Controller
 {
@@ -62,7 +64,29 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+                    // dd($request->all());
+        $date = date("Y-m-d 00:00:00");
+
+        $pembayaran_putri = new Pembayaran;
+        $pembayaran_putri->petugas_id = $request->id_petugas;
+        $pembayaran_putri->nisn = $request->nisn;
+        $pembayaran_putri->tgl_bayar = $date;
+        $pembayaran_putri->bulan_dibayar = count($request->bulan);
+        $pembayaran_putri->tahun_dibayar = $request->tahun;
+        $pembayaran_putri->spp_id = $request->id_spp;
+        $pembayaran_putri->jumlah_bayar = $request->jumlah_bayar;
+        $pembayaran_putri->save();
+
+        for ($i=0; $i < count($request->bulan) ; $i++){
+            // dd($request->bulan[$i]);
+            $bulan_detail = $request->bulan[$i];
+            $detail_pembayaran_putri = new DetailPembayaran;
+            $detail_pembayaran_putri->pembayaran_id = $pembayaran_putri->id_pembayaran;
+            $detail_pembayaran_putri->bulan_id = $bulan_detail;
+            $detail_pembayaran_putri->harga_spp = $request->nominal;
+            $detail_pembayaran_putri->save();
+        }
+        return redirect('/pembayaran')->with('sukses', 'Data berhasil ditambahkan');
     }
 
     /**

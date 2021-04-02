@@ -214,7 +214,7 @@
                                                                                             <input type="hidden" id="tahun" name="tahun"></input>
                                                                                             <input type="hidden" id="jumlah_bayar" name="jumlah_bayar"></input>
                                                                                             <input type="hidden" id="id_petugas" name="id_petugas" value="{{ Auth::guard('admin')->user()->id_petugas }}"></input>   
-                                                                                            <input type="hidden" id="id_siswa" name="id_siswa"></input> 
+                                                                                            <input type="hidden" id="nisninput" name="nisn"></input> 
                                                                                             <input type="hidden" id="id_spp" name="id_spp"></input>
                                                                                         </div>
                                                                                         <div>
@@ -246,7 +246,7 @@
                                                                                                     </div>
                                                                                                     <div class="form-group has-success">
                                                                                                         <label for="cc-name" class="control-label mb-1">Total</label>
-                                                                                                        <input name="jumlah_bayar" type="number" id="jumlah_bayar2" class="form-control cc-name valid" data-val="true" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" readonly="">
+                                                                                                        <input name="jumlah_bayar" type="number" id="jumlah_bayar2" value="" class="form-control cc-name valid" data-val="true" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" readonly="">
                                                                                                         <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                                                                                     </div>
                                                                                         
@@ -389,7 +389,9 @@
                     $("#card_body").show();
                     $("#data_siswa").show();
 
-                    document.getElementById("id_siswa").value = response[0].nisn;
+                    document.getElementById("nisn").value = response[0].nisn;
+                    $("#nisninput").val(response[0].nisn);
+
                     document.getElementById("id_spp").value = response[0].putri_spp.id_spp;
                     nominal_putri = response[0].putri_spp.nominal;
                     document.getElementById("tahun").value = response[0].putri_spp.tahun;

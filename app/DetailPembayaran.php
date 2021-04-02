@@ -9,7 +9,7 @@ class DetailPembayaran extends Model
     protected $table = 'putri_detail_pembayaran';
     protected $primaryKey = 'id_detail_pembayaran';
     // public $timestamps = true;
-    protected $fillable = ['pembayaran_id', 'bulan_id', 'tahun_bayar', 'harga_spp'];
+    protected $fillable = ['pembayaran_id', 'bulan_id', 'harga_spp'];
 
     public function bulan_putri()
     {
