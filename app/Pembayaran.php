@@ -9,21 +9,26 @@ class Pembayaran extends Model
     protected $table = 'putri_pembayaran';
     protected $primaryKey = 'id_pembayaran';
     public $timestamps = true;
-    protected $fillable = ['petugas_id','nisn','tgl_bayar','bulan_dibayar','tahun_dibayar','spp_id','jumlah_bayar'];
+    protected $fillable = ['petugas_id','siswa_id','nisn','tgl_bayar','bulan_dibayar','tahun_dibayar','spp_id','jumlah_bayar'];
 
     public function petugas_putri()
     {
-        return $this->hasMany(Petugas::class);
+        return $this->belongsTo(Petugas::class);
     }
 
-    public function siswa_putri()
+    public function putri_siswa()
     {
-        return $this->hasMany(Siswa::class);
+        return $this->belongsTo('App\Siswa', 'nisn', 'nisn');
+    }
+
+    public function putri_detail_pembayaran()
+    {
+        return $this->hasMany('App\DetailPembayaran');
     }
 
     public function spp_putri()
     {
-        return $this->hasMany(Spp::class);
+        return $this->belongsTo(Spp::class);
     }
 
     public function detail_pembayaran_putri()

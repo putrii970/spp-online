@@ -17,6 +17,11 @@ class Siswa extends Authenticatable
     public $timestamps = true;
     protected $fillable = ['nisn','nis','nama','putri_kelas_id_kelas','alamat','no_telp','spp_id_spp'];
 
+    public function putri_pembayaran()
+    {
+        return $this->hasMany('App\Pembayaran');
+    }
+
     public function putri_kelas()
     {
         return $this->belongsTo(Kelas::class);

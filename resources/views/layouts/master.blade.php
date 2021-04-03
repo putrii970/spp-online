@@ -53,7 +53,7 @@
                     <!-- <li class="menu-title">Master</li>/.menu-title -->
                     @if ( Auth::guard('admin')->user()->level=='admin')
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Master</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Data Master</a>
                         <ul class="sub-menu children dropdown-menu">                            
                             <li><i class="fa fa-puzzle-piece"></i><a href="{{'/kejuruan'}}">Kejuruan</a></li>
                             <li><i class="fa fa-bars"></i><a href="{{'/kelas'}}">Kelas</a></li>
@@ -69,7 +69,14 @@
                             <li><i class="fa fa-users"></i><a href="{{'/siswa'}}">Data Siswa</a></li>
                             <li><i class="fa fa-money"></i><a href="{{'/pembayaran'}}">Pembayaran</a></li>
                             <li><i class="fa fa-file-text-o"></i><a href="font-themify.html">Catatan</a></li>
-                            <li><i class="fa fa-print"></i><a href="ui-typgraphy.html">Laporan</a></li>
+                            <!-- <li><i class="fa fa-print"></i><a href="ui-typgraphy.html">Laporan</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-print"></i>Laporan</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-users"></i><a href="{{'/siswa'}}">Data Siswa</a></li>
+                            <li><i class="fa fa-money"></i><a href="{{'/pembayaran'}}">Transaksi</a></li>
                         </ul>
                     </li>
                    

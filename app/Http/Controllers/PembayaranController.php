@@ -43,8 +43,35 @@ class PembayaranController extends Controller
                             ->where('nisn', $request->data)
                             ->get();
                     // dd($siswa_putri);
+        $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
+                                    ->latest('created_at')
+                                    ->first();
 
-        return response()->json($siswa_putri);
+        $pembayaran_putri = Pembayaran::where('nisn', $request->data)
+                                        ->with('putri_detail_pembayaran')
+                                        ->orderBy('tahun_dibayar', 'desc')
+                                        ->having('tahun_dibayar','<=', '$cek_transaksi_siswa_putri->tahun_dibayar' )
+                                        ->get();
+        
+        if($cek_transaksi_siswa_putri != null){
+            $bulan_bayar = 0;
+            $tahun_bayar = 0;
+            foreach($pembayaran_putri as $value) {
+                $bulan_bayar += $value->bulan_dibayar;
+                $tahun_bayar = $value->tahun_dibayar;
+            }
+
+            return response()->json(['data-siswa'=>$siswa_putri,
+                                    'pembayaran' => $pembayaran_putri,
+                                    'bulan_bayar' => $bulan_bayar,
+                                    'tahun_bayar' => $tahun_bayar]);
+
+        } else {
+            return response()->json($siswa_putri);
+        }
+                    
+
+        
     }
     /**
      * Show the form for creating a new resource.
@@ -81,11 +108,13 @@ class PembayaranController extends Controller
             // dd($request->bulan[$i]);
             $bulan_detail = $request->bulan[$i];
             $detail_pembayaran_putri = new DetailPembayaran;
-            $detail_pembayaran_putri->pembayaran_id = $pembayaran_putri->id_pembayaran;
+            $detail_pembayaran_putri->pembayaran_id_pembayaran = $pembayaran_putri->id_pembayaran;
             $detail_pembayaran_putri->bulan_id = $bulan_detail;
             $detail_pembayaran_putri->harga_spp = $request->nominal;
             $detail_pembayaran_putri->save();
         }
+
+
         return redirect('/pembayaran')->with('sukses', 'Data berhasil ditambahkan');
     }
 
