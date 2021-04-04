@@ -355,14 +355,22 @@
                                                                 </div>
 
                                                                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                                                    <form >
+                                                                <form method="POST" action="{{ action('PembayaranController@store') }}">
+                                                                    @csrf 
                                                                         <div class="row">   
                                                                             <div class="col-lg-8">
                                                                                 <div class="exp">
-                                                                                    <div class="checkbox" >
+                                                                                    <div  class="checkbox">
+                                                                                        <div>
+                                                                                            <input type="hidden" id="tahun_xii" name="tahun"></input>
+                                                                                            <input type="hidden" id="jumlah_bayar_xii" name="jumlah_bayar"></input>
+                                                                                            <input type="hidden" id="id_petugas_xii" name="id_petugas" value="{{ Auth::guard('admin')->user()->id_petugas }}"></input>   
+                                                                                            <input type="hidden" id="nisninput_xii" name="nisn"></input> 
+                                                                                            <input type="hidden" id="id_spp_xii" name="id_spp"></input>
+                                                                                        </div>
                                                                                         @foreach($bulan_putri as $b_putri)
                                                                                         <label>
-                                                                                            <input type="checkbox" id="history3{{$b_putri->id_bulan}}" name="bulan[]" class="option-input checkbox" value="{{$b_putri->id_bulan}}"/>
+                                                                                            <input type="checkbox" id="history_xii{{$b_putri->id_bulan}}" name="bulan[]" class="option-input checkbox" value="{{$b_putri->id_bulan}}"/>
                                                                                             {{$b_putri->nama_bulan}}
                                                                                         </label>
                                                                                         @endforeach
@@ -383,11 +391,11 @@
                                                                                                 <!-- <form action="#" method="post" novalidate="novalidate"> -->
                                                                                                     <div class="form-group">
                                                                                                         <label for="cc-payment" class="control-label mb-1">Nominal Spp</label>
-                                                                                                        <input name="nominal" type="text" id="nominal_spp" class="form-control" value="" readonly="">
+                                                                                                        <input name="nominal" type="text" id="nominal_spp3" class="form-control" value="" readonly="">
                                                                                                     </div>
                                                                                                     <div class="form-group has-success">
                                                                                                         <label for="cc-name" class="control-label mb-1">Total</label>
-                                                                                                        <input name="jumlah_bayar" type="number" id="jumlah_bayar2" value="" class="form-control cc-name valid" data-val="true" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" readonly="">
+                                                                                                        <input name="jumlah_bayar" type="number" id="historyjumlah_bayar3" value="" class="form-control cc-name valid" data-val="true" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" readonly="">
                                                                                                         <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                                                                                     </div>
                                                                                         
@@ -397,7 +405,7 @@
                                                                                                             <span id="payment-button-sending" style="display:none;">Sending…</span>
                                                                                                         </button>
                                                                                                     </div>
-                                                                                                </form>
+                                                                                                
                                                                                             </div>
                                                                                         </div>
 
@@ -446,13 +454,13 @@
             x_putri = parseInt(tahun);
             xi_putri = parseInt(tahun) + 1;
             xii_putri = parseInt(tahun) + 2;
-            console.log(bulanSudahBayar + 'bulan nih');
+            console.log(bulanSudahBayar + 'bulan nih' + tahunBayarTerakhir);
 
             $("#kelas_x").text(x_putri +'-'+ (x_putri+1));
             $("#kelas_xi").text(xi_putri +'-'+ (xi_putri+1));
             $("#kelas_xii").text(xii_putri +'-'+ (xii_putri+1));
 
-            if(tahunBayarTerakhir == x_putri && bulanSudahBayar == 12) {
+            if(tahunBayarTerakhir == x_putri && bulanSudahBayar == 0) {
                 $("#tab_x").hide();
                 $("#tab_xi").show();
                 $("#tab_xii").hide();
@@ -496,6 +504,17 @@
                 $("#tab_x").hide();
                 $("#tab_xi").hide();
                 $("#tab_xii").show();
+                for (let i=0;i <= 12; i++){
+                        $('#id_checkbox' + i).prop('checked', true).attr("disabled", true);      
+                   
+                }
+
+                for (let i=0;i <= 12; i++) {
+                    $('#history_xi' + i).prop('checked', true).attr("disabled", true);      
+                }
+                for (let i=0;i <= bulanSudahBayar; i++) {
+                    $('#history_xii' + i).prop('checked', true).attr("disabled", true);      
+                }
                 console.log(bulanSudahBayar+ 'true5');
 
             }
@@ -503,7 +522,18 @@
             if(tahunBayarTerakhir == xii_putri && bulanSudahBayar == 12) {
                 $("#tab_x").hide();
                 $("#tab_xi").hide();
-                $("#tab_xii").show();
+                $("#tab_xii").hide();
+                for (let i=0;i <= 12; i++){
+                        $('#id_checkbox' + i).prop('checked', true).attr("disabled", true);      
+                   
+                }
+
+                for (let i=0;i <= 12; i++) {
+                    $('#history_xi' + i).prop('checked', true).attr("disabled", true);      
+                }
+                for (let i=0;i <= 12; i++) {
+                    $('#history_xii' + i).prop('checked', true).attr("disabled", true);      
+                }
                 console.log(bulanSudahBayar+ 'true6');
 
             }
@@ -595,6 +625,12 @@
                         $("#nominal_spp2").val(element.putri_spp.nominal);
                         $("#id_spp_xi").val(element.putri_spp.id_spp);
 
+                        // * SET VALUE FORM KELAS XI *
+                        $("#nisninput_xii").val(element.nisn);
+                        $("#tahun_xii").val(parseInt(element.putri_spp.tahun) + 2);
+                        $("#nominal_spp3").val(element.putri_spp.nominal);
+                        $("#id_spp_xii").val(element.putri_spp.id_spp);
+
 
                         // * CARI JUMLAH BULAN YANG UDAH DI BAYAR *
                         jumlahBulanBayar = response['jumlah-bayar'];
@@ -604,15 +640,23 @@
                         //     jumlahBulanBayar += itemLengthJumlahBulan;
                         //     console.log('length' + itemLengthJumlahBulan);
                         // });
+                        
 
                         if(response['pembayaran'] == null) {
                             tahunBayarTerakhir = element.putri_spp.tahun;
                             showTahun(tahunBayarTerakhir, tahunBayarTerakhir, 0);
 
                         } else {
+                            tahunBayarTerakhir = response['pembayaran'].tahun_dibayar;
                             if(jumlahBulanBayar == 12) {
-                                tahunBayarTerakhir = parseInt(response['pembayaran'].tahun_dibayar) + 1;
-                                showTahun(element.putri_spp.tahun, tahunBayarTerakhir, 0);
+                                if(tahunBayarTerakhir == parseInt(element.putri_spp.tahun) + 2) {
+                                    tahunBayarTerakhir = tahunBayarTerakhir;
+                                    showTahun(element.putri_spp.tahun, tahunBayarTerakhir, 12);
+                                    console.log('masuk1');
+                                } else {
+                                    tahunBayarTerakhir = parseInt(response['pembayaran'].tahun_dibayar) + 1;
+                                    showTahun(element.putri_spp.tahun, tahunBayarTerakhir, 0);
+                                }
                             } else {
                                 tahunBayarTerakhir = response['pembayaran'].tahun_dibayar;
                                 showTahun(element.putri_spp.tahun, tahunBayarTerakhir, jumlahBulanBayar);
@@ -688,6 +732,14 @@
                         console.log($(this).val());
                         console.log(total_putri);
                         $("#historyjumlah_bayar2").val(total_putri);      
+                });
+
+                $('#history_xii' + i).change(function() {
+                        // alert($(this).val());
+                        total_putri += nominal_putri;
+                        console.log($(this).val());
+                        console.log(total_putri);
+                        $("#historyjumlah_bayar3").val(total_putri);      
                 });
             }
 
