@@ -53,7 +53,7 @@ class PembayaranController extends Controller
                                         ->get();
         
         return response()->json(['data-siswa' => $siswa_putri,
-                                'pembayaran' => $pembayaran_putri]);
+                                 'pembayaran' => $pembayaran_putri]);
         
                     
 
