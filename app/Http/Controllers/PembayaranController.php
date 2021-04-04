@@ -42,14 +42,14 @@ class PembayaranController extends Controller
                             ->where('nisn', $request->data)
                             ->get();
                     // dd($siswa_putri);
-        // $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
-        //                             ->latest('created_at')
-        //                             ->first();
+        $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
+                                    ->latest('created_at')
+                                    ->first();
 
         $pembayaran_putri = Pembayaran::where('nisn', $request->data)
                                         ->with('putri_detail_pembayaran')
                                         ->orderBy('tahun_dibayar', 'desc')
-                                        ->having('tahun_dibayar','<=', '$cek_transaksi_siswa_putri->tahun_dibayar' )
+                                        ->having('tahun_dibayar','<=', $cek_transaksi_siswa_putri->tahun_dibayar )
                                         ->get();
         
         return response()->json(['data-siswa' => $siswa_putri,

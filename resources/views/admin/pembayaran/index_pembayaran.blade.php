@@ -432,7 +432,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script type="text/javascript">
     var x_putri, xi_putri, xii_putri;
-    var tahunBayarTerakhir, bulanSudahBayar;
+    var tahunBayarTerakhir, bulanSudahBayar, jumlahBulanBayar = 0;
 
     function checkbox (){
         return ''
@@ -445,7 +445,7 @@
             x_putri = parseInt(tahun);
             xi_putri = parseInt(tahun) + 1;
             xii_putri = parseInt(tahun) + 2;
-            console.log(tahunBayarTerakhir + 'TAHUN');
+            console.log(bulanSudahBayar + 'bulan nih');
 
             $("#kelas_x").text(x_putri +'-'+ (x_putri+1));
             $("#kelas_xi").text(xi_putri +'-'+ (xi_putri+1));
@@ -462,6 +462,9 @@
                 $("#tab_x").show();
                 $("#tab_xi").hide();
                 $("#tab_xii").hide();
+                for (let i=0;i <= bulanSudahBayar; i++) {
+                    $('#id_checkbox' + i).prop('checked', true).attr("disabled", true);      
+                }
                 console.log(bulanSudahBayar+ 'true2');
             }
 
@@ -470,6 +473,10 @@
                 $("#tab_x").hide();
                 $("#tab_xi").show();
                 $("#tab_xii").hide();
+                for (let i=0;i <= 12; i++){
+                        $('#id_checkbox' + i).prop('checked', true).attr("disabled", true);      
+                   
+                }
                 console.log(bulanSudahBayar+ 'true3');
             }
 
@@ -495,10 +502,7 @@
                 console.log(bulanSudahBayar+ 'true6');
 
             }
-            for (let i=0;i <= bulanSudahBayar; i++){
-                        $('#id_checkbox' + i).prop('checked', true).attr("disabled", true);      
-                   
-                }
+            
 
                 // var total_putri = 0;
 
@@ -580,17 +584,24 @@
                         $("#nominal_spp").val(element.putri_spp.nominal);
                         console.log('tahun spp' +element.putri_spp.tahun); 
 
-                        if(response['pembayaran']) {
+                        // * CARI JUMLAH BULAN YANG UDAH DI BAYAR *
+                        $.each(response['pembayaran'], function(i_pembayaran, valuePembayaran) {
+                            itemLengthJumlahBulan = parseInt(valuePembayaran.putri_detail_pembayaran.length); 
+                            jumlahBulanBayar += itemLengthJumlahBulan;
+                            console.log('length' + itemLengthJumlahBulan);
+                        });
+
+                        if(response['pembayaran'] == null) {
                             tahunBayarTerakhir = element.putri_spp.tahun;
                             showTahun(tahunBayarTerakhir, tahunBayarTerakhir, 0);
 
                         } else {
-                            if(response['bulan_bayar'] == 12) {
-                                tahunBayarTerakhir = parseInt(response['tahun_bayar']) + 1;
+                            if(jumlahBulanBayar == 12) {
+                                tahunBayarTerakhir = parseInt(response['pembayaran'][0].tahun_dibayar) + 1;
                                 showTahun(element.putri_spp.tahun, tahunBayarTerakhir, 0);
                             } else {
-                                tahunBayarTerakhir = response['tahun_bayar'];
-                                showTahun(element.putri_spp.tahun, tahunBayarTerakhir, response['bulan_bayar']);
+                                tahunBayarTerakhir = response['pembayaran'][0].tahun_dibayar;
+                                showTahun(element.putri_spp.tahun, tahunBayarTerakhir, jumlahBulanBayar);
 
                             }
 
