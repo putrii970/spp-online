@@ -26,39 +26,44 @@
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
-<body class="bg-dark">
+<body style="background-color: rgb(248, 250, 251);">
+<!-- @if(\Session::has('alert'))
+    <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+        <span class="badge badge-pill badge-danger">Gagal</span>
+        {{Session::get('alert')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+  @endif
 
+  @if(\Session::has('alert-success'))
+    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+        <span class="badge badge-pill badge-success">Berhasil</span>
+        {{Session::get('alert-success')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+         </button>
+    </div>
+  @endif -->
+    <!-- class="bg-dark" -->
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
-                <!-- <div class="login-logo">
-                    <a href="index.html">
-                        <img class="align-content" src="{{asset('admin/images/logo.png')}}" alt="">
-                    </a>
-                    <h2 style="color:white;">E-SPP</h2>
-                </div> -->
-                
-                <div class="login-form" style="left: 25%; top: 25%; bottom: 25%; margin-left:50px;">
+                <br><br><br>
+                <div class="login-form" style="left: 25%; top: 25%; bottom: 25%; margin-left:50px; background-color:#fff;">
                     <b><h4 style="margin-bottom:10px; margin-top:5px;">SIGN IN</h4></b><hr>
                     <form action="/login" method="POST" style="margin-top:25px;">
                     @csrf
                         <div class="form-group">
                             <b><label>Username</label></b>
-                            <input name="username" type="username" class="form-control" placeholder="Username">
+                            <input name="username" type="username" class="form-control" placeholder="Username" required>
                         </div>
                         <div class="form-group">
                             <b><label>Password</label></b>
-                            <input name="password" type="password" class="form-control" placeholder="Password">
-                        </div>
-                        <!-- <div class="checkbox">
-                            <label class="pull-right">
-                                <a href="#">Forgotten Password?</a>
-                            </label>
-                        </div> -->
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
-                        <!-- <div class="register-link m-t-15 text-center">
-                            <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
-                        </div> -->
+                            <input name="password" type="password" class="form-control" placeholder="Password" required>
+                        </div><br>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" style="background-color: #38d39f;">Sign in</button>
                     </form>
                 </div>
             </div>

@@ -580,7 +580,7 @@
                         $("#nominal_spp").val(element.putri_spp.nominal);
                         console.log('tahun spp' +element.putri_spp.tahun); 
 
-                        if(response['pembayaran'].length == 0) {
+                        if(response['pembayaran']) {
                             tahunBayarTerakhir = element.putri_spp.tahun;
                             showTahun(tahunBayarTerakhir, tahunBayarTerakhir, 0);
 

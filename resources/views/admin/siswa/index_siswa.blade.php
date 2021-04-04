@@ -63,7 +63,8 @@
                             <div class="card-header">
                                 <strong class="card-title">Tabel Siswa</strong>
                                 <div class="float-right">
-                                    <button type="button" style="float:right;" class="btn btn-info mb-1" data-toggle="modal" data-target="#mediumModal">Tambah</button>
+                                    <button type="button" style="float:right;" class="btn btn-sm btn-info mb-1" data-toggle="modal" data-target="#mediumModal">Tambah</button>
+                                    <a href="/siswa/exportPdf"><button type="button" style="float:right;" class="btn btn-sm btn-success mb-1 mr-1">Export Pdf</button></a>
                                 </div>
                             </div> 
                             
@@ -118,8 +119,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                                             </div>
                                             </form>
                                         </div>
@@ -178,13 +179,13 @@
                                                             <td>{{$sis_putri->putri_spp->tahun}}</td>
                                                             <td>
                                                                 <div class="d-flex mt-2">
-                                                                    <a href="/siswa/edit/{{$sis_putri->nisn}}"><button type="submit" name="edit" class="btn btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
+                                                                    <a href="/siswa/edit/{{$sis_putri->nisn}}"><button type="submit" name="edit" class="btn btn-sm btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
 
                                                                     <form action="{{ action('SiswaController@destroy', $sis_putri->nisn) }}" method="POST">
                                                                             @csrf
                                                                         @method('DELETE')
 
-                                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                                                     </form>
                                                                 </div>
                                                             </td>

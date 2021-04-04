@@ -37,15 +37,14 @@ class PembayaranController extends Controller
     }
 
     public function cari(Request $request) {
-        // $siswa_putri = Siswa::all();
         $siswa_putri = Siswa::with('putri_kelas.kejuruan_putri')
                             ->with('putri_spp')
                             ->where('nisn', $request->data)
                             ->get();
                     // dd($siswa_putri);
-        $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
-                                    ->latest('created_at')
-                                    ->first();
+        // $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
+        //                             ->latest('created_at')
+        //                             ->first();
 
         $pembayaran_putri = Pembayaran::where('nisn', $request->data)
                                         ->with('putri_detail_pembayaran')
@@ -53,22 +52,9 @@ class PembayaranController extends Controller
                                         ->having('tahun_dibayar','<=', '$cek_transaksi_siswa_putri->tahun_dibayar' )
                                         ->get();
         
-        if($cek_transaksi_siswa_putri != null){
-            $bulan_bayar = 0;
-            $tahun_bayar = 0;
-            foreach($pembayaran_putri as $value) {
-                $bulan_bayar += $value->bulan_dibayar;
-                $tahun_bayar = $value->tahun_dibayar;
-            }
-
-            return response()->json(['data-siswa'=>$siswa_putri,
-                                    'pembayaran' => $pembayaran_putri,
-                                    'bulan_bayar' => $bulan_bayar,
-                                    'tahun_bayar' => $tahun_bayar]);
-
-        } else {
-            return response()->json($siswa_putri);
-        }
+        return response()->json(['data-siswa' => $siswa_putri,
+                                'pembayaran' => $pembayaran_putri]);
+        
                     
 
         

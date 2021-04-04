@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Siswa;
+use App\Kelas;
+use App\Petugas;
+use App\Spp;
 
 class BerandaController extends Controller
 {
@@ -13,6 +17,7 @@ class BerandaController extends Controller
      */
     public function index()
     {
+        $siswa = Siswa::all();
         return view('beranda');
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kejuruan;
+use PDF;
 
 class KejuruanController extends Controller
 {
@@ -94,5 +95,13 @@ class KejuruanController extends Controller
         $kejuruans_putri = Kejuruan::find($id);
         $kejuruans_putri->delete();
         return redirect('/kejuruan')->with('sukses', 'Data berhasil dihapus');
+    }
+
+    public function exportPdf()
+    {
+        $kejuruan_putri = Kejuruan::all();
+        $pdf = PDF::loadView('laporan.kejuruan_pdf', ['kejuruan_putri' => $kejuruan_putri]);
+        
+        return $pdf->stream();
     }
 }

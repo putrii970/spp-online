@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kelas;
 use App\Kejuruan;
+use PDF;
 
 class KelasController extends Controller
 {
@@ -102,5 +103,13 @@ class KelasController extends Controller
         $kelas_putri = Kelas::find($id);
         $kelas_putri->delete();
         return redirect('/kelas')->with('sukses', 'Data berhasil dihapus');
+    }
+
+    public function exportPdf()
+    {
+        $kelas_putri = Kelas::with('kejuruan_putri')->get();
+        $pdf = PDF::loadView('laporan.kelas_pdf', ['kelas_putri' => $kelas_putri]);
+        
+        return $pdf->stream();
     }
 }

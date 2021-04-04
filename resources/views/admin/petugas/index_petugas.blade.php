@@ -64,7 +64,8 @@
                             <div class="card-header">
                                 <strong class="card-title">Tabel Petugas</strong>
                                 <div class="float-right">
-                                    <button type="button" style="float:right;" class="btn btn-info mb-1" data-toggle="modal" data-target="#mediumModal">Tambah</button>
+                                    <button type="button" style="float:right;" class="btn btn-sm btn-info mb-1" data-toggle="modal" data-target="#mediumModal">Tambah</button>
+                                    <a href="/petugas/exportPdf"><button type="button" style="float:right;" class="btn btn-sm btn-success mb-1 mr-1">Export Pdf</button></a>
                                 </div>
                             </div> 
                             
@@ -101,8 +102,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
                                             </div>
                                             </form>
                                         </div>
@@ -138,7 +139,7 @@
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Username</th>
-                                                            <th>Password</th>
+                                                            <!-- <th>Password</th> -->
                                                             <th>Nama Petugas</th>
                                                             <th>Level</th>
                                                             <th>Aksi</th>
@@ -150,18 +151,18 @@
                                                         <tr>
                                                             <td>{{$i}}</td>
                                                             <td>{{$pet_putri->username}}</td>
-                                                            <td>{{$pet_putri->password}}</td>
+                                                            <!-- <td>{{$pet_putri->password}}</td> -->
                                                             <td>{{$pet_putri->nama_petugas}}</td>
                                                             <td>{{$pet_putri->level}}</td>
                                                             <td>
                                                                 <div class="d-flex mt-2">
-                                                                    <a href="/petugas/edit/{{$pet_putri->id_petugas}}"><button type="submit" name="edit" class="btn btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
+                                                                    <a href="/petugas/edit/{{$pet_putri->id_petugas}}"><button type="submit" name="edit" class="btn btn-sm btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
 
                                                                     <form action="{{ action('PetugasController@destroy', $pet_putri->id_petugas) }}" method="POST">
                                                                             @csrf
                                                                         @method('DELETE')
 
-                                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                                                        <button type="submit" class="btn btn-sm  btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                                                     </form>
                                                                 </div>
                                                             </td>

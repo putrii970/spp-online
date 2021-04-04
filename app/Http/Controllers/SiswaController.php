@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Siswa;
 use App\Kelas;
 use App\Spp;
+use PDF;
 
 class SiswaController extends Controller
 {
@@ -111,5 +112,13 @@ class SiswaController extends Controller
         $siswa_putri = Siswa::find($id);
         $siswa_putri->delete();
         return redirect('/siswa')->with('sukses', 'Data berhasil dihapus');
+    }
+
+    public function exportPdf()
+    {
+        $siswa_putri = Siswa::with('putri_kelas')->with('putri_spp')->get();
+        $pdf = PDF::loadView('laporan.siswa_pdf', ['siswa_putri' => $siswa_putri]);
+        
+        return $pdf->stream();
     }
 }
