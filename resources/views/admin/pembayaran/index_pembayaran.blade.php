@@ -294,20 +294,21 @@
                                                                 
                                                                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"> 
                                                                     <form method="POST" action="{{ action('PembayaranController@store') }}">
+                                                                    @csrf 
                                                                         <div class="row">   
                                                                             <div class="col-lg-8">
                                                                                 <div class="exp">
                                                                                     <div  class="checkbox">
                                                                                         <div>
-                                                                                            <input type="hidden" id="tahun" name="tahun"></input>
-                                                                                            <input type="hidden" id="jumlah_bayar" name="jumlah_bayar"></input>
-                                                                                            <input type="hidden" id="id_petugas" name="id_petugas" value="{{ Auth::guard('admin')->user()->id_petugas }}"></input>   
-                                                                                            <input type="hidden" id="nisninput" name="nisn"></input> 
-                                                                                            <input type="hidden" id="id_spp" name="id_spp"></input>
+                                                                                            <input type="hidden" id="tahun_xi" name="tahun"></input>
+                                                                                            <input type="hidden" id="jumlah_bayar_xi" name="jumlah_bayar"></input>
+                                                                                            <input type="hidden" id="id_petugas_xi" name="id_petugas" value="{{ Auth::guard('admin')->user()->id_petugas }}"></input>   
+                                                                                            <input type="hidden" id="nisninput_xi" name="nisn"></input> 
+                                                                                            <input type="hidden" id="id_spp_xi" name="id_spp"></input>
                                                                                         </div>
                                                                                         @foreach($bulan_putri as $b_putri)
                                                                                         <label>
-                                                                                            <input type="checkbox" id="history2{{$b_putri->id_bulan}}" name="bulan[]" class="option-input checkbox" value="{{$b_putri->id_bulan}}"/>
+                                                                                            <input type="checkbox" id="history_xi{{$b_putri->id_bulan}}" name="bulan[]" class="option-input checkbox" value="{{$b_putri->id_bulan}}"/>
                                                                                             {{$b_putri->nama_bulan}}
                                                                                         </label>
                                                                                         @endforeach
@@ -328,11 +329,11 @@
                                                                                                 <!-- <form action="#" method="post" novalidate="novalidate"> -->
                                                                                                     <div class="form-group">
                                                                                                         <label for="cc-payment" class="control-label mb-1">Nominal Spp</label>
-                                                                                                        <input name="nominal" type="text" id="nominal_spp" class="form-control" value="" readonly="">
+                                                                                                        <input name="nominal" type="text" id="nominal_spp2" class="form-control" value="" readonly="">
                                                                                                     </div>
                                                                                                     <div class="form-group has-success">
                                                                                                         <label for="cc-name" class="control-label mb-1">Total</label>
-                                                                                                        <input name="jumlah_bayar" type="number" id="jumlah_bayar2" value="" class="form-control cc-name valid" data-val="true" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" readonly="">
+                                                                                                        <input name="jumlah_bayar" type="number" id="historyjumlah_bayar2" value="" class="form-control cc-name valid" data-val="true" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name" readonly="">
                                                                                                         <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                                                                                     </div>
                                                                                         
@@ -477,6 +478,10 @@
                         $('#id_checkbox' + i).prop('checked', true).attr("disabled", true);      
                    
                 }
+
+                for (let i=0;i <= bulanSudahBayar; i++) {
+                    $('#history_xi' + i).prop('checked', true).attr("disabled", true);      
+                }
                 console.log(bulanSudahBayar+ 'true3');
             }
 
@@ -579,17 +584,26 @@
                         document.getElementById("tahun").value = element.putri_spp.tahun;
                         
                         let input_nominal = document.getElementById("nominal_spp");
-                        console.log(input_nominal + '' + element.putri_spp.nominal);
+                        console.log('' + input_nominal + '' + element.putri_spp.nominal);
 
                         $("#nominal_spp").val(element.putri_spp.nominal);
-                        console.log('tahun spp' +element.putri_spp.tahun); 
+                        console.log('tahun spp' +element.putri_spp.tahun);
+
+                        // * SET VALUE FORM KELAS XI *
+                        $("#nisninput_xi").val(element.nisn);
+                        $("#tahun_xi").val(parseInt(element.putri_spp.tahun) + 1);
+                        $("#nominal_spp2").val(element.putri_spp.nominal);
+                        $("#id_spp_xi").val(element.putri_spp.id_spp);
+
 
                         // * CARI JUMLAH BULAN YANG UDAH DI BAYAR *
-                        $.each(response['pembayaran'], function(i_pembayaran, valuePembayaran) {
-                            itemLengthJumlahBulan = parseInt(valuePembayaran.putri_detail_pembayaran.length); 
-                            jumlahBulanBayar += itemLengthJumlahBulan;
-                            console.log('length' + itemLengthJumlahBulan);
-                        });
+                        jumlahBulanBayar = response['jumlah-bayar'];
+
+                        // $.each(response['pembayaran'], function(i_pembayaran, valuePembayaran) {
+                        //     itemLengthJumlahBulan = parseInt(valuePembayaran.putri_detail_pembayaran.length); 
+                        //     jumlahBulanBayar += itemLengthJumlahBulan;
+                        //     console.log('length' + itemLengthJumlahBulan);
+                        // });
 
                         if(response['pembayaran'] == null) {
                             tahunBayarTerakhir = element.putri_spp.tahun;
@@ -597,10 +611,10 @@
 
                         } else {
                             if(jumlahBulanBayar == 12) {
-                                tahunBayarTerakhir = parseInt(response['pembayaran'][0].tahun_dibayar) + 1;
+                                tahunBayarTerakhir = parseInt(response['pembayaran'].tahun_dibayar) + 1;
                                 showTahun(element.putri_spp.tahun, tahunBayarTerakhir, 0);
                             } else {
-                                tahunBayarTerakhir = response['pembayaran'][0].tahun_dibayar;
+                                tahunBayarTerakhir = response['pembayaran'].tahun_dibayar;
                                 showTahun(element.putri_spp.tahun, tahunBayarTerakhir, jumlahBulanBayar);
 
                             }
@@ -667,8 +681,26 @@
                         console.log(total_putri);
                         $("#jumlah_bayar2").val(total_putri);      
                 });
+
+                $('#history_xi' + i).change(function() {
+                        // alert($(this).val());
+                        total_putri += nominal_putri;
+                        console.log($(this).val());
+                        console.log(total_putri);
+                        $("#historyjumlah_bayar2").val(total_putri);      
+                });
             }
 
         });
+
+        function ObjectLength( object ) {
+            var length = 0;
+            for( var key in object ) {
+                if( object.hasOwnProperty(key) ) {
+                    ++length;
+                }
+            }
+            return length;
+        };
     </script>
 @stop
