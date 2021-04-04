@@ -12,7 +12,7 @@
 		}
 	</style>
 	<center>
-		<h5>Data Petugas</h4>
+		<h5>Data Spp</h4>
 		<!-- <h6><a target="_blank" href="https://www.malasngoding.com/membuat-laporan-…n-dompdf-laravel/">www.malasngoding.com</a></h5> -->
 	</center>
 
@@ -20,19 +20,17 @@
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Username</th>
-				<th>Nama Petugas</th>
-				<th>Level</th>
+				<th>Tahun</th>
+				<th>Nominal</th>
 			</tr>
 		</thead>
 		<tbody>
 			@php $i=1 @endphp
-            @foreach($petugas_putri as $pe)
+            @foreach($spp_putri as $sp)
 			<tr>
 				<td>{{ $i++ }}</td>
-				<td>{{$pe->username}}</td>
-				<td>{{$pe->nama_petugas}}</td>
-                <td>{{$pe->level}}</td>
+				<td>{{$sp->tahun}}</td>
+				<td>{{$sp->nominal}}</td>
 			</tr>
 			@endforeach
 		</tbody>

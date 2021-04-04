@@ -48,19 +48,14 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a href="{{'/beranda'}}"><i class="menu-icon fa fa-laptop"></i>Beranda</a>
+                        <a href="{{'/profilSaya'}}"><i class="menu-icon fa fa-user"></i>Profil Saya</a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Profil Saya</a>
+                    <li class="">
+                        <a href="{{'/kartuSppUser'}}"><i class="menu-icon fa fa-credit-card"></i>Kartu Spp</a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-tasks"></i>Kartu Spp</a>
-                        
+                    <li class="">
+                        <a href="{{'/Tunggakan'}}"><i class="menu-icon fa fa-tasks"></i>Tunggakan</a>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-print"></i>Tunggakan</a>
-                    </li>
-                   
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -89,7 +84,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="/logout"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="/logoutUser"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 

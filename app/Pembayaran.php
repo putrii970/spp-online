@@ -9,7 +9,7 @@ class Pembayaran extends Model
     protected $table = 'putri_pembayaran';
     protected $primaryKey = 'id_pembayaran';
     public $timestamps = true;
-    protected $fillable = ['petugas_id','siswa_id','nisn','tgl_bayar','bulan_dibayar','tahun_dibayar','spp_id','jumlah_bayar'];
+    protected $fillable = ['petugas_id','nisn','tgl_bayar','bulan_dibayar','tahun_dibayar','spp_id','jumlah_bayar'];
 
     public function petugas_putri()
     {

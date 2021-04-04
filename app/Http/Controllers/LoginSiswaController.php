@@ -23,7 +23,7 @@ class LoginSiswaController extends Controller
             return redirect('login')->with('alert','Kamu harus login dulu');
         }
         else{
-            return view('user.berandaUser');
+            return view('user.profilUser');
         }
     }
 
@@ -54,7 +54,7 @@ class LoginSiswaController extends Controller
             if($request->nisn == $siswa_putri->nisn){
                 Session::put('siswa_putri',$siswa_putri);
                 Session::put('login',TRUE);
-                return redirect('/berandaUser');
+                return redirect('/profilUser');
              } else {
                 return redirect('/loginUser')->with('alert', 'Nisn tidak ditemukan');
              }

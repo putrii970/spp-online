@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Spp;
+use PDF;
 
 class SppController extends Controller
 {
@@ -96,5 +97,13 @@ class SppController extends Controller
         $spp_putri = Spp::find($id);
         $spp_putri->delete();
         return redirect('/spp')->with('sukses', 'Data berhasil dihapus');
+    }
+
+    public function exportPdf()
+    {
+        $spp_putri = Spp::all();
+        $pdf = PDF::loadView('laporan.spp_pdf', ['spp_putri' => $spp_putri]);
+        
+        return $pdf->stream();
     }
 }

@@ -63,23 +63,27 @@
                     </li>
                     @endif
                     <!-- <li class="menu-title">Icons</li>/.menu-title -->
+                    
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-tasks"></i>Transaksi</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-users"></i><a href="{{'/siswa'}}">Data Siswa</a></li>
                             <li><i class="fa fa-money"></i><a href="{{'/pembayaran'}}">Pembayaran</a></li>
-                            <li><i class="fa fa-file-text-o"></i><a href="font-themify.html">Catatan</a></li>
-                            <!-- <li><i class="fa fa-print"></i><a href="ui-typgraphy.html">Laporan</a></li> -->
+                            <li><i class="fa fa-file-text-o"></i><a href="{{'/riwayat'}}">Riwayat</a></li>
                         </ul>
                     </li>
+                    @if ( Auth::guard('admin')->user()->level=='admin')
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-print"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-users"></i><a href="{{'/siswa'}}">Data Siswa</a></li>
-                            <li><i class="fa fa-money"></i><a href="{{'/pembayaran'}}">Transaksi</a></li>
+                            <li><i class="fa fa-users"></i><a href="{{'/pendapatan'}}">Pendapatan</a></li>
+                            <li><i class="fa fa-money"></i><a href="{{'/tunggakan'}}">Tunggakan</a></li>
                         </ul>
                     </li>
-                   
+                    @endif
+                    
+
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -108,12 +112,6 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a> -->
-
-                            <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a> -->
-
                             <a class="nav-link" href="/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>

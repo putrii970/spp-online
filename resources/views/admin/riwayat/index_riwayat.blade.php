@@ -8,11 +8,11 @@
 @section('content')
 @if(session('sukses'))
         <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
-            <span class="badge badge-pill badge-success">Sukses</span>
-                {{session('sukses')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
+                                        <span class="badge badge-pill badge-success">Sukses</span>
+                                        {{session('sukses')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
         </div>
 @endif
 
@@ -36,7 +36,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Master</h1>
+                                <h1>Transaksi</h1>
                             </div>
                         </div>
                     </div>
@@ -44,8 +44,8 @@
                         <div class="page-header float-right">
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
-                                    <li><a href="#">Master</a></li>
-                                    <li class="active"><a href="/spp">Spp</a></li>
+                                    <li><a href="#">Transaksi</a></li>
+                                    <li class="active"><a href="/riwayat">Riwayat</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -61,53 +61,15 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tabel Spp</strong>
+                                <strong class="card-title">Riwayat Pembayaran</strong>
                                 <div class="float-right">
-                                    <button type="button" style="float:right;" class="btn btn-sm btn-info mb-1" data-toggle="modal" data-target="#mediumModal">Tambah</button>
+                                    <a href="/riwayat/exportPdf"><button type="button" style="float:right;" class="btn btn-sm btn-success mb-1 mr-1">Export Pdf</button></a>
+                                    FILTER DATA
                                 </div>
-                                <a href="/spp/exportPdf"><button type="button" style="float:right;" class="btn btn-sm btn-success mb-1 mr-1">Export Pdf</button></a>
                             </div> 
                             
                             <!-- MODAL TAMBAH -->
                             <div class="card-body">
-                                <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="mediumModalLabel">Tambah Spp</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                            <form action="/spp" method="POST">
-                                                        {{csrf_field()}}
-                                                <div class="form-group">
-                                                    <select name="tahun" class="form-control form-control">
-                                                        <option>-Pilih Tahun Ajaran-</option>
-                                                        <?php
-                                                            $date_putri = date('Y', strtotime('-5 Years'));
-                                                            $date2_putri = date('Y', strtotime('+1 Years'));
-                                                            for($i_putri = $date_putri; $i_putri < $date2_putri + 4; $i_putri++){
-                                                                echo '<option value='.$i_putri.'>'.$i_putri.'-'.($i_putri+1).'</option>';
-                                                            }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="nominal" class=" form-control-label">Nominal</label>
-                                                    <input type="number" id="nominal" placeholder="" class="form-control" name="nominal" required>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                                            </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                
                                 <div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                                     <!-- TABEL -->
                                     <div class="row">
@@ -116,30 +78,41 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
+                                                            <th>Nama Petugas</th>
+                                                            <th>NISN</th>
+                                                            <th>Tanggal Bayar</th>
+                                                            <th>Bulan Dibayar</th>
+                                                            <th>Tahun Dibayar</th>
                                                             <th>Tahun Ajaran</th>
                                                             <th>Nominal</th>
-                                                            <th>Aksi</th>
+                                                            <th>Jumlah Bayar</th>
+                                                            <!-- <th>Aksi</th> -->
                                                         </tr>
                                                     </thead>
                                                     <?php $i = 1; ?>
-                                                    @foreach($spp_putri as $sp_putri)
+                                                    @foreach($riwayat_putri as $ri_putri)
                                                     <tbody>
                                                         <tr>
                                                             <td>{{$i}}</td>
-                                                            <?php $spp_int_putri = (int)$sp_putri->tahun + 1; ?>
-                                                            <td>{{$sp_putri->tahun}} - {{$spp_int_putri}}</td>
-                                                            <td>@currency($sp_putri->nominal)</td>
-                                                            <td>
+                                                            <td>{{$ri_putri->petugas_putri->nama_petugas}}</td>
+                                                            <td>{{$ri_putri->putri_siswa->nisn}}</td>
+                                                            <td>{{$ri_putri->tgl_bayar}}</td>
+                                                            <td>{{$ri_putri->bulan_dibayar}}</td>
+                                                            <td>{{$ri_putri->tahun_dibayar}}</td>
+                                                            <td>{{$ri_putri->spp_putri->tahun}}</td>
+                                                            <td>{{$ri_putri->spp_putri->nominal}}</td>
+                                                            <td>{{$ri_putri->jumlah_bayar}}</td>
+                                                            <!-- <td>
                                                                 <div class="d-flex mt-2">
-                                                                    <a href="/spp/edit/{{$sp_putri->id_spp}}"><button type="submit" name="edit" class="btn btn-sm btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
+                                                                    <a href="/kelas/edit/{{$kel_putri->id_kelas_putri}}"><button type="submit" name="edit" class="btn btn-sm btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
 
-                                                                    <form action="{{ action('SppController@destroy', $sp_putri->id_spp) }}" method="POST">
+                                                                    <form action="{{ action('KelasController@destroy', $kel_putri->id_kelas_putri) }}" method="POST">
                                                                             @csrf
                                                                         @method('DELETE')
 
-                                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                                                        <button type="submit" class="btn btn-sm  btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                                                     </form>
-                                                                </div>
+                                                                </div> -->
                                                             </td>
                                                         </tr>
                                                         <?php $i++; ?>
@@ -148,6 +121,7 @@
                                             </table>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -158,8 +132,8 @@
                 </div>
             </div>
 </div>
-@stop
 
+@stop
 @section('page-script')
 <script src="{{asset('admin/assets/js/lib/data-table/datatables.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>

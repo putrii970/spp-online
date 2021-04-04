@@ -84,17 +84,28 @@ Route::group(['middleware' => ['auth:admin']], function(){
     Route::delete('/pembayaran/{id}/delete', 'PembayaranController@destroy');
     Route::get('/pembayaran/exportPdf', 'PembayaranController@exportPdf');
 
-    //cari pembayaran
+    //CARI PEMBAYARAN
     Route::get('/', 'PembayaranController@index');
     Route::get('/cari', 'PembayaranController@filterData')->name('pembayaran.filter');
     Route::post('/cari', 'PembayaranController@cari')->name('pembayaran.cari');
 
+    //RIWAYAT
+    Route::get('/riwayat', 'RiwayatController@index');
+    Route::get('/riwayat/exportPdf', 'RiwayatController@exportPdf');
+
+    //PENDAPATAN
+    Route::get('/pendapatan', 'PendapatanController@index');
+    Route::get('/pendapatan/filter', 'PendapatanController@filter')->name('pendapatan.filter');;
+    Route::get('/pendapatan/exportPdf', 'PendapatanController@exportPdf');
     
 });
 
-    Route::get('/berandaUser', 'LoginSiswaController@index');
+    Route::get('/profilUser', 'LoginSiswaController@index');
     Route::get('/loginUser', 'LoginSiswaController@login');
     Route::post('/loginPost', 'LoginSiswaController@loginPost');
     Route::get('/logoutUser', 'LoginSiswaController@logout');
+
+    Route::get('/kartuSppUser', 'KartuSppController@index');
+
 
 ?>
