@@ -57,6 +57,8 @@ class KartuSppController extends Controller
                 'status' => 'success',
                 'data' => $pembayaran,
                 'data_siswa' => $siswa_putri2,
+                'jumlah_bayar' => $jumlah_bayar,
+                'pembayaran' =>  $cek_transaksi_siswa_putri
             ];
     
             return response()->json($response, 200);

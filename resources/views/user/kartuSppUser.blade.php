@@ -219,6 +219,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            var total_putri = 0;
+
+            for (let i=0;i < 13; i++){
+
+                $('#id_checkbox' + i).change(function() {
+                        // alert($(this).val());
+                        total_putri += nominal_putri;
+                        console.log($(this).val());
+                        console.log(total_putri);
+                        $("#jumlah_bayar2").val(total_putri);      
+                });
+
+                $('#history_xi' + i).change(function() {
+                        // alert($(this).val());
+                        total_putri += nominal_putri;
+                        console.log($(this).val());
+                        console.log(total_putri);
+                        $("#historyjumlah_bayar2").val(total_putri);      
+                });
+
+                $('#history_xii' + i).change(function() {
+                        // alert($(this).val());
+                        total_putri += nominal_putri;
+                        console.log($(this).val());
+                        console.log(total_putri);
+                        $("#historyjumlah_bayar3").val(total_putri);      
+                });
+            }
+
+        });
+
         $.ajax({
             url: '/kartuSppUser',
             type: 'GET',
@@ -226,16 +258,46 @@
         }).done(function(res){
             let data = res.data
             let siswa= res.data_siswa
-            console.log(data);
+            let tahunMasuk = siswa.putri_spp.tahun;
+
+            // * CARI JUMLAH BULAN YANG UDAH DI BAYAR *
+            jumlahBulanBayar = res.jumlah_bayar;
+            console.log(res.bayar + 'jumlah');
+
+            if(res.pembayaran == null) {
+                tahunBayarTerakhir = tahunMasuk;
+                showTahun(tahunBayarTerakhir, tahunBayarTerakhir, 0);
+
+            } else {
+                tahunBayarTerakhir = res.pembayaran.tahun_dibayar;
+                if(jumlahBulanBayar == 12) {
+                    if(tahunBayarTerakhir == parseInt(tahunMasuk) + 2) {
+                        tahunBayarTerakhir = tahunBayarTerakhir;
+                        showTahun(tahunMasuk, tahunBayarTerakhir, 12);
+                        console.log('masuk1');
+                    } else {
+                        tahunBayarTerakhir = parseInt(res.pembayaran.tahun_dibayar) + 1;
+                        showTahun(tahunMasuk, tahunBayarTerakhir, 0);
+                    }
+                } else {
+                    tahunBayarTerakhir = res.pembayaran.tahun_dibayar;
+                    showTahun(tahunMasuk, tahunBayarTerakhir, jumlahBulanBayar);
+
+                }
+
+
+            }
             $('input[name^="bulan_bayar"]').each( function() {
                 let bulan = this.value
                 let component = this
                 $.each(data, function(index, pembayaran){ 
                     $.each(pembayaran.putri_detail_pembayaran, function(key, detail){
                         if(detail.bulan_id == bulan){
-                            $(component).prop('checked', true);
+                            // $(component).prop('checked', true);
                         }
                     })
+                    // console.log(pembayaran.tahun_dibayar);
+
                 })
             });
         })
@@ -345,5 +407,8 @@
             
             
         }
+
+                    
+
     </script>
 @stop
