@@ -13,7 +13,6 @@
 	</style>
 	<center>
 		<h5>Data Petugas</h4>
-		<!-- <h6><a target="_blank" href="https://www.malasngoding.com/membuat-laporan-…n-dompdf-laravel/">www.malasngoding.com</a></h5> -->
 	</center>
 
 	<table class='table table-bordered'>

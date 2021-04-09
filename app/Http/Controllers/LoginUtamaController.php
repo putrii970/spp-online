@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Siswa;
-use App\Kelas;
-use App\Petugas;
 use App\Pembayaran;
-use App\Spp;
+use Session;
 
-class BerandaController extends Controller
+class LoginUtamaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,32 +15,25 @@ class BerandaController extends Controller
      */
     public function index()
     {
-        $siswa_putri = Siswa::with('putri_kelas')->with('putri_spp')->count();
-        $petugas_putri = Petugas::count();
-        $riwayat_putri = Pembayaran::where('petugas_id',auth()->user()->id_petugas)
-                                    ->with('petugas_putri')
-                                    ->with('putri_siswa')
-                                    ->with('spp_putri')
-                                    ->count();
+        $siswa_info_putri = Session::get('siswa_putri');
+        // dd($siswa_info_putri);
 
-        $riwayat_nominal_putri = Pembayaran::where('petugas_id',auth()->user()->id_petugas)
-                                    ->with('petugas_putri')
-                                    ->with('putri_siswa')
-                                    ->with('spp_putri')
-                                    ->get();
-
-        $nominal = 0;
-        foreach($riwayat_nominal_putri as $value) {
-            $nominal += $value->jumlah_bayar;
+        $cek_transaksi_siswa_putri = Pembayaran::where('nisn',$siswa_info_putri->nisn)
+                            ->latest('created_at')
+                            ->first();
+        if($cek_transaksi_siswa_putri != null) {
+            $riwayat_cek_transaksi_siswa = Pembayaran::where('nisn',$siswa_info_putri->nisn)
+                                                    ->where('bulan_dibayar', 12)
+                                                    ->orderBy('tahun_dibayar', 'asc')
+                                                    ->having('tahun_dibayar', '<=', $cek_transaksi_siswa_putri->tahun_dibayar)
+                                                    ->get();
+        } else {
+            $riwayat_cek_transaksi_siswa = null;
         }
-
-        // dd($nominal);
-
-        return view('beranda')
-                    ->with('siswa_putri',$siswa_putri)
-                    ->with('petugas_putri',$petugas_putri)
-                    ->with('riwayat_putri',$riwayat_putri)
-                    ->with('nominal',$nominal);
+        // dd($check_transaksi_siswa);
+        return view('user.profilUser')
+                            ->with('cek_transaksi_siswa_putri', $cek_transaksi_siswa_putri)
+                            ->with('riwayat_cek_transaksi_siswa', $riwayat_cek_transaksi_siswa);
     }
 
     /**

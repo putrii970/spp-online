@@ -64,7 +64,6 @@
                                 <strong class="card-title">Riwayat Pembayaran</strong>
                                 <div class="float-right">
                                     <a href="/riwayat/exportPdf"><button type="button" style="float:right;" class="btn btn-sm btn-success mb-1 mr-1">Export Pdf</button></a>
-                                    FILTER DATA
                                 </div>
                             </div> 
                             
@@ -77,45 +76,26 @@
                                             <table id="bootstrap-data-table" class="table table-striped table-bordered table-sm">
                                                     <thead>
                                                         <tr>
-                                                            <th>No</th>
-                                                            <th>Nama Petugas</th>
                                                             <th>NISN</th>
-                                                            <th>Tanggal Bayar</th>
-                                                            <th>Bulan Dibayar</th>
-                                                            <th>Tahun Dibayar</th>
-                                                            <th>Tahun Ajaran</th>
-                                                            <th>Nominal</th>
+                                                            <th>Nama</th>
+                                                            <th>Spp Per Bulan</th>
+                                                            <th>Jumlah Bulan Dibayar</th>
                                                             <th>Jumlah Bayar</th>
-                                                            <!-- <th>Aksi</th> -->
+                                                            <th>Tanggal Bayar</th>
+                                                            <th>Tahun Ajaran</th>
                                                         </tr>
                                                     </thead>
-                                                    <?php $i = 1; ?>
                                                     @foreach($riwayat_putri as $ri_putri)
                                                     <tbody>
                                                         <tr>
-                                                            <td>{{$i}}</td>
-                                                            <td>{{$ri_putri->petugas_putri->nama_petugas}}</td>
                                                             <td>{{$ri_putri->putri_siswa->nisn}}</td>
-                                                            <td>{{$ri_putri->tgl_bayar}}</td>
+                                                            <td>{{$ri_putri->putri_siswa->nama}}</td>
+                                                            <td>@currency($ri_putri->spp_putri->nominal)</td>
                                                             <td>{{$ri_putri->bulan_dibayar}}</td>
-                                                            <td>{{$ri_putri->tahun_dibayar}}</td>
+                                                            <td>@currency($ri_putri->jumlah_bayar)</td>
+                                                            <td>{{$ri_putri->tgl_bayar}}</td>
                                                             <td>{{$ri_putri->spp_putri->tahun}}</td>
-                                                            <td>{{$ri_putri->spp_putri->nominal}}</td>
-                                                            <td>{{$ri_putri->jumlah_bayar}}</td>
-                                                            <!-- <td>
-                                                                <div class="d-flex mt-2">
-                                                                    <a href="/kelas/edit/{{$kel_putri->id_kelas_putri}}"><button type="submit" name="edit" class="btn btn-sm btn-warning mb-1" style="margin-right:10px;">Edit</button></a>
-
-                                                                    <form action="{{ action('KelasController@destroy', $kel_putri->id_kelas_putri) }}" method="POST">
-                                                                            @csrf
-                                                                        @method('DELETE')
-
-                                                                        <button type="submit" class="btn btn-sm  btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                                                    </form>
-                                                                </div> -->
-                                                            </td>
                                                         </tr>
-                                                        <?php $i++; ?>
                                                     @endforeach
                                                     </tbody>
                                             </table>

@@ -43,7 +43,7 @@
                         <div class="page-header float-right">
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
-                                    <li><a href="#">Laporan</a></li>
+                                    <li><a href="#">laporan</a></li>
                                     <li class="active"><a href="/pendapatan">Pendapatan</a></li>
                                 </ol>
                             </div>
@@ -67,10 +67,10 @@
                             </div> 
                             <div class="card-body">
                                 <div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                    
                                     <!-- TABEL -->
                                     <div class="row">
                                         <div class="col-sm-12">
+                                            <?php $pend_putri = 0 ?> 
                                             <table id="bootstrap-data-table" class="table table-striped table-bordered table-sm">
                                                     <thead>
                                                         <tr>
@@ -84,27 +84,27 @@
                                                             <th>Jumlah Bayar</th>
                                                         </tr>
                                                     </thead>
-                                                    <?php $i = 1; ?>
+                                                    <?php $i = 1;?>
                                                     @foreach($pendapatan_putri as $pen_putri)
                                                     <tbody>
                                                         <tr>
                                                             <td>{{$i}}</td>
                                                             <td>{{$pen_putri->putri_siswa->nisn}}</td>
                                                             <td>{{$pen_putri->putri_siswa->nama}}</td>
-                                                            <td>{{$pen_putri->spp_putri->nominal}}</td>
+                                                            <td>{{$pen_putri->spp_putri->tahun}}</td>
                                                             <td>{{$pen_putri->bulan_dibayar}}</td>
                                                             <td>{{$pen_putri->tgl_bayar}}</td>
                                                             <td>{{$pen_putri->tahun_dibayar}}</td>
-                                                            <td>{{$pen_putri->jumlah_bayar}}</td>
+                                                            <td>@currency($pen_putri->jumlah_bayar)</td>
                                                         </tr>
                                                         <?php $i++; ?>
                                                         <?php 
-                                                            $pendapatan_putri+= $pen_putri->jumlah_bayar;
+                                                            $pend_putri+= $pen_putri->jumlah_bayar;
                                                         ?>
                                                     @endforeach
                                                     </tbody>
-                                                    <td colspan="6" style="text-align: right;" ><b>Total Pendapatan :</b></td>
-                                                    <td style="text-align: center;"><b>$pendapatan_putri</b></td>
+                                                    <td colspan="7" style="text-align: right;" ><b>Total Pendapatan : </b></td>
+                                                    <td style="text-align: center;"><b>@currency($pend_putri)</b></td>
                                             </table>
                                         </div>
                                     </div>
@@ -116,8 +116,8 @@
                     
                 </div>
         </div>
-        <!-- MODAL TAMBAH -->
-        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                                <!-- MODAL TAMBAH -->
+                                <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -140,11 +140,11 @@
 
                                                 <div class="form-group form-float {{$errors->has('tahun') ? ' has-danger' : ''}}" >
                                                     <select name="tahun" class="form-control ">
-                                                    <option value="">-- Pilih Tahun--</option>
-                                                    @foreach ($spp_putri as $id_putri => $s_putri)
-                                                    <?php $tahun2 = $s_putri->tahun + 1 ?>
-                                                    <option value="{{ $s_putri->tahun }}">{{ $s_putri->tahun}} - {{$tahun2}}</option>
-                                                    @endforeach
+                                                        <option value="">-- Pilih Tahun--</option>
+                                                            @foreach ($spp_putri as $id_putri => $s_putri)
+                                                            <?php $tahun2_putri = $s_putri->tahun + 1 ?>
+                                                        <option value="{{ $s_putri->tahun }}">{{ $s_putri->tahun}} - {{$tahun2_putri}}</option>
+                                                            @endforeach
                                                     </select>
                                                 </div>                                  
                                                         
@@ -182,8 +182,8 @@
 
 @stop
 @section('page-script')
-<script src="{{asset('admin/assets/js/lib/data-table/datatables.min.js')}}"></script>
-<script src="{{asset('admin/assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/lib/data-table/datatables.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/lib/data-table/jszip.min.js')}}"></script>

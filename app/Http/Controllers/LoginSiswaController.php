@@ -20,7 +20,7 @@ class LoginSiswaController extends Controller
     public function index()
     {
         if(!Session::get('login')){
-            return redirect('login')->with('alert','Kamu harus login dulu');
+            return redirect('/loginUser')->with('alert', 'Kamu harus login dulu');
         }
         else{
             return view('user.profilUser');
@@ -53,8 +53,9 @@ class LoginSiswaController extends Controller
          } else {
             if($request->nisn == $siswa_putri->nisn){
                 Session::put('siswa_putri',$siswa_putri);
+                // dd($siswa_putri);
                 Session::put('login',TRUE);
-                return redirect('/profilUser');
+                return redirect('/loginUtama');
              } else {
                 return redirect('/loginUser')->with('alert', 'Nisn tidak ditemukan');
              }
@@ -67,7 +68,7 @@ class LoginSiswaController extends Controller
     public function logout()
     {
         Session::put('login',FALSE);
-        return redirect('/loginUser')->with('alert-success','Logout Success');
+        return redirect('/loginUser')->with('alert-success','Logout Sukses');
   
     }
 }

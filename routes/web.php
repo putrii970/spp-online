@@ -100,8 +100,9 @@ Route::group(['middleware' => ['auth:admin']], function(){
     
 });
 
-    Route::get('/profilUser', 'LoginSiswaController@index');
+    // Route::get('/profilUser', 'LoginSiswaController@index');
     Route::get('/loginUser', 'LoginSiswaController@login');
+    Route::get('/loginUtama', 'LoginUtamaController@index');
     Route::post('/loginPost', 'LoginSiswaController@loginPost');
     Route::get('/logoutUser', 'LoginSiswaController@logout');
 

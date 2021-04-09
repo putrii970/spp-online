@@ -13,4 +13,9 @@ class Petugas extends Authenticatable
     protected $primaryKey = 'id_petugas';
     public $timestamps = true;
     protected $fillable = ['username', 'password', 'nama_petugas','level','deleted_at'];
+
+    public function petugas_putri()
+    {
+        return $this->hasMany('App\Petugas');
+    }
 }

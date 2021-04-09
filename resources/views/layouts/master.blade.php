@@ -59,6 +59,7 @@
                             <li><i class="fa fa-bars"></i><a href="{{'/kelas'}}">Kelas</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{'/petugas'}}"> Petugas</a></li>
                             <li><i class="fa fa-book"></i><a href="{{'/spp'}}">Spp</a></li>
+                            <li><i class="fa fa-users"></i><a href="{{'/siswa'}}">Data Siswa</a></li>
                         </ul>
                     </li>
                     @endif
@@ -67,7 +68,6 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-tasks"></i>Transaksi</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-users"></i><a href="{{'/siswa'}}">Data Siswa</a></li>
                             <li><i class="fa fa-money"></i><a href="{{'/pembayaran'}}">Pembayaran</a></li>
                             <li><i class="fa fa-file-text-o"></i><a href="{{'/riwayat'}}">Riwayat</a></li>
                         </ul>
@@ -76,7 +76,7 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-print"></i>Laporan</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-users"></i><a href="{{'/pendapatan'}}">Pendapatan</a></li>
+                            <li><i class="fa fa-usd"></i><a href="{{'/pendapatan'}}">Pendapatan</a></li>
                             <li><i class="fa fa-money"></i><a href="{{'/tunggakan'}}">Tunggakan</a></li>
                         </ul>
                     </li>

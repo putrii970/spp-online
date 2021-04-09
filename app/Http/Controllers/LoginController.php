@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Petugas;
 use App\Siswa;
 use Auth;
+use Redirect;
 
 class LoginController extends Controller
 {
@@ -29,7 +30,11 @@ class LoginController extends Controller
         // if successful, then redirect to their intended location
       return redirect()->intended('/beranda');
     }
-    return redirect()->intended('/login');
+    return Redirect::back()->withErrors(
+      [
+        'username' => 'Username/password salah'
+      ]
+      );
  
     // else if (Auth::guard('siswa')->attempt(['username' => $request->username, 'password' => $request->password])) {
     //   return redirect()->intended('/');

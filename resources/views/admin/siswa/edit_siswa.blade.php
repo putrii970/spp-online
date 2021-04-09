@@ -65,15 +65,15 @@
                                 <input type="text" name="no_telp" class="form-control" value="{{$siswa_putri['no_telp']}}"> 
                             </div>
                             <div class="form-group">
-								<label class="col-form-label">Tahun</label>
-								<select required name="spp_id_spp" class="form-control form-control" >
-                                    <option  value="">-Pilih Tahun-</option>
-                                        @foreach($spp_putri as $sp_putri => $s_putri)
+                                <label class="col-form-label">Tahun</label>
+								<select required name="spp_id_spp" class="form-control form-control" id="spp_id">					
+                                    <option value="" disabled selected>-Pilih Tahun-</option>
+									    @foreach($spp_putri as $sp_putri => $s_putri)
                                         <?php $spp_int_putri = (int)$s_putri->tahun + 1; ?>
-                                    <option {{$siswa_putri->spp_id_spp == $sp_putri ? 'selected' : ''}} value="{{$sp_putri}}">{{$s_putri}}</option>
-                                        @endforeach
+									<option {{$siswa_putri->spp_id_spp == $s_putri->id_spp ? 'selected' : ''}} value="{{$s_putri->id_spp}}">{{$s_putri->tahun}} - {{$spp_int_putri}}</option>
+										@endforeach
 								</select>
-							</div>
+                            </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-success" value="Simpan">
                                 <a href="/siswa" class="btn btn-secondary">Kembali</a>

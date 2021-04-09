@@ -28,22 +28,42 @@
                                                                     <tr>
                                                                         <td>Nama</td>
                                                                         <td>:</td>
-                                                                        <td style="color: rgb(118, 157, 29); font-weight:bold" id="nama">{{Session::get('nama')}}</td>
+                                                                        <td style="color: rgb(118, 157, 29); font-weight:bold" id="nama">{{Session::get('siswa_putri')->nama}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>NISN</td>
                                                                         <td>:</td>
-                                                                        <td id="nisn">{{Session::get('nisn')}}</td>
+                                                                        <td id="nisn">{{Session::get('siswa_putri')->nisn}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>NIS</td>
                                                                         <td>:</td>
-                                                                        <td id="nis">{{Session::get('nis')}}</td>
+                                                                        <td id="nis">{{Session::get('siswa_putri')->nis}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Kelas</td>
                                                                         <td>:</td>
-                                                                        <td id="kelas">{{Session::get('nama')}}</td>
+                                                                        <td id="kelas">{{Session::get('siswa_putri')->putri_kelas->nama_kelas}} {{Session::get('siswa_putri')->putri_kelas->kejuruan_putri->nama_jurusan}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Alamat</td>
+                                                                        <td>:</td>
+                                                                        <td id="alamat">{{Session::get('siswa_putri')->alamat}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>No Telepon</td>
+                                                                        <td>:</td>
+                                                                        <td id="no_telp">{{Session::get('siswa_putri')->no_telp}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Tahun Ajaran</td>
+                                                                        <td>:</td>
+                                                                        <td id="tahun">{{Session::get('siswa_putri')->putri_spp->tahun}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Nominal</td>
+                                                                        <td>:</td>
+                                                                        <td id="tahun">{{Session::get('siswa_putri')->putri_spp->nominal}}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table><br>

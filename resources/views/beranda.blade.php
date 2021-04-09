@@ -8,7 +8,7 @@
     <div class="animated fadeIn">
             <!-- Widgets  -->
             <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -17,8 +17,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text">$<span class="count">23569</span></div>
-                                            <div class="stat-heading">Revenue</div>
+                                            <div class="stat-text"><span>@currency($nominal)</span></div>
+                                            <div class="stat-heading">Pendapatan</div>
                                         </div>
                                     </div>
                                 </div>
@@ -26,17 +26,17 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
+                                        <i class="ti-bookmark-alt"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">3435</span></div>
-                                            <div class="stat-heading">Sales</div>
+                                            <div class="stat-text"><span class="count">{{$siswa_putri}}</span></div>
+                                            <div class="stat-heading">Siswa</div>
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -53,8 +53,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">349</span></div>
-                                            <div class="stat-heading">Templates</div>
+                                            <div class="stat-text"><span class="count">{{$riwayat_putri}}</span></div>
+                                            <div class="stat-heading">Riwayat</div>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-five">
@@ -71,8 +71,8 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">2986</span></div>
-                                            <div class="stat-heading">Clients</div>
+                                            <div class="stat-text"><span class="count">{{$petugas_putri}}</span></div>
+                                            <div class="stat-heading">Petugas</div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,16 +81,6 @@
                     </div>
             </div>
             <!-- /Widgets -->
-
-
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="mb-3">Pendapatan</h4>
-                            <canvas id="singelBarChart"></canvas>
-                    </div>
-                </div>
-            </div><!-- /# column -->
     </div>
 </div>
 @stop

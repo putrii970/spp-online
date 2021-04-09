@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Pembayaran;
 use App\Kelas;
 use App\Spp;
+use PDF;
 
 class PendapatanController extends Controller
 {
@@ -16,16 +17,20 @@ class PendapatanController extends Controller
      */
     public function index()
     {
-        $pendapatan_putri = Pembayaran::with('petugas_putri', 'putri_siswa', 'spp_putri')
+        $pendapatan_putri = Pembayaran::with('petugas_putri')
+                                    ->with('putri_siswa')
+                                    ->with('spp_putri')
                                     ->where('jumlah_bayar', '!=', 0)
                                     ->get();
+                                    
+        $kelas_putri = Kelas::with('kejuruan_putri')->get();
         
-        $kelas_putri = Kelas::with('kejuruan_putri')
-                            ->get();
-        
+        // $putri_spp = Spp::where('id_spp', $pendapatan_putri->id_spp)
+        //                     ->orderBy('created_at','desc')->get();
+
+        // dd($pendapatan_putri);
         $spp_putri = Spp::orderBy('created_at','desc')->get();
 
-        // dd($request->query->all());
         return view ('admin.pendapatan.index_pendapatan')
                 ->with('pendapatan_putri',$pendapatan_putri)
                 ->with('kelas_putri',$kelas_putri)
@@ -65,12 +70,11 @@ class PendapatanController extends Controller
 
         $pendapatan_putri = $pendapatan_putri->orderBy('tgl_bayar','desc')->where('jumlah_bayar', '!=', 0)->get();
         
-        $kelas_putri = Kelas::with('kejuruan_putri')
-                                ->get();
+        $kelas_putri = Kelas::with('kejuruan_putri')->get();
                 
         $spp_putri = Spp::orderBy('created_at','desc')->get();
         
-        // dd($request->query->all());
+        
         return view ('admin.pendapatan.index_pendapatan')
                     ->with('pendapatan_putri',$pendapatan_putri)
                     ->with('kelas_putri',$kelas_putri)
@@ -140,5 +144,17 @@ class PendapatanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportPdf()
+    {
+        $pendapatan_putri = Pembayaran::with('petugas_putri')
+                                    ->with('putri_siswa')
+                                    ->with('spp_putri')
+                                    ->where('jumlah_bayar', '!=', 0)
+                                    ->get();
+        $pdf = PDF::loadView('laporan.pendapatan_pdf', ['pendapatan_putri' => $pendapatan_putri]);
+        
+        return $pdf->stream();
     }
 }

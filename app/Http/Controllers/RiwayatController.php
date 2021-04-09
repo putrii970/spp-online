@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pembayaran;
+use PDF;
 
 class RiwayatController extends Controller
 {
@@ -14,9 +15,12 @@ class RiwayatController extends Controller
      */
     public function index()
     {
-        $riwayat_putri = Pembayaran::with('petugas_putri')
+        $riwayat_putri = Pembayaran::where('petugas_id',auth()->user()->id_petugas)
+                                    ->where('jumlah_bayar', '!=', 0)
+                                    ->with('petugas_putri')
                                     ->with('putri_siswa')
                                     ->with('spp_putri')
+                                    ->with('putri_detail_pembayaran')
                                     ->get();
         return view('admin.riwayat.index_riwayat', compact('riwayat_putri'));
     }
@@ -85,5 +89,20 @@ class RiwayatController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function exportPdf()
+    {
+        $riwayat_putri = Pembayaran::where('petugas_id',auth()->user()->id_petugas)
+                                    ->where('jumlah_bayar', '!=', 0)
+                                    ->with('petugas_putri')
+                                    ->with('putri_siswa')
+                                    ->with('spp_putri')
+                                    ->with('putri_detail_pembayaran')
+                                    ->get();
+
+        $pdf = PDF::loadView('laporan.riwayat_pdf', ['riwayat_putri' => $riwayat_putri]);
+        
+        return $pdf->stream();
     }
 }

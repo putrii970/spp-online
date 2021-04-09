@@ -15,6 +15,14 @@
                                             <span aria-hidden="true">×</span>
                                         </button>
         </div>
+@elseif(session('gagal'))
+<div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                                        <span class="badge badge-pill badge-danger">Gagal</span>
+                                        {{session('gagal')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+        </div>
 @endif
 
 @if(count($errors) > 0)
@@ -88,6 +96,9 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password" class=" form-control-label">Password</label><input type="password" id="company" placeholder="" class="form-control" name="password" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password" class=" form-control-label">Konfirmasi Password</label><input type="password" id="company" placeholder="" class="form-control" name="k_password" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama_petugas" class=" form-control-label">Nama Petugas</label><input type="text" id="nama_petugas" placeholder="" class="form-control" name="nama_petugas" required>

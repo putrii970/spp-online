@@ -9,11 +9,11 @@ class Pembayaran extends Model
     protected $table = 'putri_pembayaran';
     protected $primaryKey = 'id_pembayaran';
     public $timestamps = true;
-    protected $fillable = ['petugas_id','nisn','tgl_bayar','bulan_dibayar','tahun_dibayar','spp_id','jumlah_bayar'];
+    protected $fillable = ['petugas_id','nisn','tgl_bayar','bulan_dibayar','tahun_dibayar','id_spp','jumlah_bayar'];
 
     public function petugas_putri()
     {
-        return $this->belongsTo(Petugas::class);
+        return $this->belongsTo('App\Petugas', 'petugas_id', 'id_petugas');
     }
 
     public function putri_siswa()
@@ -28,7 +28,7 @@ class Pembayaran extends Model
 
     public function spp_putri()
     {
-        return $this->belongsTo(Spp::class);
+        return $this->belongsTo('App\Spp','id_spp','id_spp');    
     }
 
     public function detail_pembayaran_putri()

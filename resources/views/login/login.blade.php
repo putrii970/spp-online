@@ -47,6 +47,15 @@
     </div>
   @endif -->
     <!-- class="bg-dark" -->
+    @if ($errors->has('username'))
+        <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+            <span class="badge badge-pill badge-danger">Gagal</span>
+            {{ $errors->first('username') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+    @endif
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">

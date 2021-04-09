@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Petugas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Session;
 use PDF;
 
 class PetugasController extends Controller
@@ -36,15 +38,22 @@ class PetugasController extends Controller
      */
     public function store(Request $request)
     {
+        
+        if($request->password != $request->k_password ){
+            return redirect('/petugas')->with('gagal', 'konfirmasi password tidak cocok'); 
+        }
         //insert
-        $petugas_putri = new Petugas;
+        else{
+            $petugas_putri = new Petugas;
         $petugas_putri->username = $request->username;
-        $petugas_putri->password = $request->password;
+        $petugas_putri->password = Hash::make($request->password);
         $petugas_putri->nama_petugas = $request->nama_petugas;
         $petugas_putri->level = $request->level;
         $petugas_putri->save();
 
         return redirect('/petugas')->with('sukses', 'data berhasil ditambahkan');
+        }
+        
     }
 
     /**
@@ -80,11 +89,17 @@ class PetugasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
         $petugas_putri = Petugas::find($id);
-        $petugas_putri->update($request->all());
-
-        return redirect('/petugas')->with('sukses', 'Data berhasil terupdate!');
+        if($request->password != $request->k_password){
+            Session::flash('salah','konfirmasi password tidak cocok');
+            return redirect('/petugas/edit/'.$id);
+        }else{
+            $petugas_putri->update($request->all());
+            Session::flash('benar','data berhasil diedit');
+            return redirect('/petugas')->with('sukses', 'Data berhasil terupdate!');
+        }
+        
     }
 
     /**

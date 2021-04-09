@@ -31,6 +31,15 @@
         <div class="content">
             <div class="container">
                 <div class="card mt-5">
+                @if(session('salah'))
+        <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+                                        <span class="badge badge-pill badge-danger">Gagal</span>
+                                        {{session('salah')}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+        </div>
+@endif
                     <div class="card-body" id="content">
                     @foreach($petugas_putri as $pet_putri)
                         <form method="POST" action="/petugas/{{$pet_putri->id_petugas}}">
@@ -45,14 +54,19 @@
                                 <input type="password" name="password" class="form-control" value="{{$pet_putri['password']}}"> 
                             </div>
                             <div class="form-group">
+                                <label>Konfirmasi Password</label>
+                                <input type="password" name="k_password" class="form-control"> 
+                            </div>
+                            <div class="form-group">
                                 <label>Nama Petugas</label>
                                 <input type="text" name="nama_petugas" class="form-control" value="{{$pet_putri['nama_petugas']}}"> 
                             </div>
                             <div class="form-group">
                                 <label>Level</label>
                                 <select class="form-control" name="level" id="level">
-                                    <option value="{{ $pet_putri->id_petugas }}"> {{ $pet_putri->level }}</option>
-                                    <!-- <option value="petugas">Petugas</option>   -->
+                                    <option value="" disabled selected>-- Pilih Level --</option>
+                                    <option value="petugas" {{ ($pet_putri->level === 'admin'? 'selected' : '')}}>Admin</option>
+                                    <option value="admin" {{($pet_putri->level === 'petugas')? 'selected' : ''}}>Petugas</option>
                                 </select>
                             </div>
                             <div class="form-group">

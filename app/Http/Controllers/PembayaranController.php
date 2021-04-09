@@ -42,19 +42,29 @@ class PembayaranController extends Controller
                             ->where('nisn', $request->data)
                             ->get();
                     // dd($siswa_putri);
-        // $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
-        //                             ->latest('created_at')
-        //                             ->first();
+        $cek_transaksi_siswa_putri = Pembayaran::where('nisn', $request->data)
+                                    ->with('putri_detail_pembayaran')
+                                    ->latest('created_at')
+                                    ->first();
+        $jumlah_bayar = 0;
+        if($cek_transaksi_siswa_putri != null) {
+            $pembayaran_putri = Pembayaran::where('nisn', $request->data)
+                                            ->with('putri_detail_pembayaran')
+                                            ->orderBy('tahun_dibayar', 'desc')
+                                            ->where('tahun_dibayar','=', $cek_transaksi_siswa_putri->tahun_dibayar )
+                                            ->get();
+            foreach($pembayaran_putri as $value) {
+                $jumlah_bayar += count($value->putri_detail_pembayaran);
+            }
+        } else {
+            $pembayaran_putri = null;
+        }
 
-        $pembayaran_putri = Pembayaran::where('nisn', $request->data)
-                                        ->with('putri_detail_pembayaran')
-                                        ->orderBy('tahun_dibayar', 'desc')
-                                        ->having('tahun_dibayar','<=', '$cek_transaksi_siswa_putri->tahun_dibayar' )
-                                        ->get();
-        
+        // dd($pembayaran_putri);
+
         return response()->json(['data-siswa' => $siswa_putri,
-                                 'pembayaran' => $pembayaran_putri]);
-        
+                                    'pembayaran' => $cek_transaksi_siswa_putri,
+                                    'jumlah-bayar' => $jumlah_bayar]);
                     
 
         
@@ -86,7 +96,7 @@ class PembayaranController extends Controller
         $pembayaran_putri->tgl_bayar = $date;
         $pembayaran_putri->bulan_dibayar = count($request->bulan);
         $pembayaran_putri->tahun_dibayar = $request->tahun;
-        $pembayaran_putri->spp_id = $request->id_spp;
+        $pembayaran_putri->id_spp = $request->id_spp;
         $pembayaran_putri->jumlah_bayar = $request->jumlah_bayar;
         $pembayaran_putri->save();
 

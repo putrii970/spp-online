@@ -38,6 +38,12 @@ class SppController extends Controller
      */
     public function store(Request $request)
     {
+        $angka_nominal_putri = str_replace(".","", $request->nominal);
+
+        $this->validate($request, [
+            'tahun' =>'required|unique:putri_spp',
+            'nominal' => 'required'
+        ]);
         //insert
         $spp_putri = new Spp;
         $spp_putri->tahun = $request->tahun;

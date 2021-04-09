@@ -48,14 +48,14 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a href="{{'/profilSaya'}}"><i class="menu-icon fa fa-user"></i>Profil Saya</a>
+                        <a href="{{'/loginUtama'}}"><i class="menu-icon fa fa-user"></i>Profil Saya</a>
                     </li>
                     <li class="">
                         <a href="{{'/kartuSppUser'}}"><i class="menu-icon fa fa-credit-card"></i>Kartu Spp</a>
                     </li>
-                    <li class="">
+                    <!-- <li class="">
                         <a href="{{'/Tunggakan'}}"><i class="menu-icon fa fa-tasks"></i>Tunggakan</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

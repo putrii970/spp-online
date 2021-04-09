@@ -80,7 +80,7 @@ class SiswaController extends Controller
     public function edit($id)
     {
         $siswa_putri = Siswa::find($id);
-        $spp_putri = Spp::pluck('tahun', 'id_spp');
+        $spp_putri = Spp::all();
         $kelas_putri = Kelas::with('kejuruan_putri')->get();
         
         return view('admin.siswa.edit_siswa', compact('siswa_putri', 'spp_putri', 'kelas_putri'));
@@ -95,6 +95,7 @@ class SiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $siswa_putri = Siswa::find($id);
         $siswa_putri->update($request->all());
 

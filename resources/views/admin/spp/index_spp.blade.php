@@ -28,7 +28,6 @@
 @endforeach
 @endif
 <!-- Header-->
-
     <!-- BREADCRUMB -->
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -95,8 +94,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="nominal" class=" form-control-label">Nominal</label>
-                                                    <input type="number" id="nominal" placeholder="" class="form-control" name="nominal" required>
+                                                    <label for="nominal" class="form-control-label">Nominal</label>
+                                                    <input type="number" id="nominal" placeholder="" class="form-control money" name="nominal" required>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -154,15 +153,25 @@
                         </div>
                     </div>
 
-
                 </div>
             </div>
 </div>
 @stop
 
 @section('page-script')
-<script src="{{asset('admin/assets/js/lib/data-table/datatables.min.js')}}"></script>
-<script src="{{asset('admin/assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#nominal').mask('0.000.000.000.000.000', {reverse:true});
+            // $('.money').mask("#,##0.000", {reverse: true});
+        })
+
+        
+    </script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script> -->
+    <script src="https://cdn.rawgit.com/igorescobar/jQuery-Mask-Plugin/1ef022ab/dist/jquery.mask.min.js"></script>
+    <script src="{{asset('admin/assets/js/lib/data-table/datatables.min.js')}}"></script>
+    <script src="{{asset('admin/assets/js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/lib/data-table/dataTables.buttons.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/lib/data-table/buttons.bootstrap.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/lib/data-table/jszip.min.js')}}"></script>
@@ -172,10 +181,9 @@
     <script src="{{asset('admin/assets/js/lib/data-table/buttons.colVis.min.js')}}"></script>
     <script src="{{asset('admin/assets/js/init/datatables-init.js')}}"></script>
 
-
     <script type="text/javascript">
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
       } );
-  </script>
+    </script>
 @stop
